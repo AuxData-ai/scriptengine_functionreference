@@ -23,16 +23,21 @@ Ausnahmen bilden reguläre Ausdrücke und zwar folgende Operatoren:
 
 Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integriert, die Funktionen der AuxData.ai Plattform in die ScriptEngine integrieren und die Zusammenarbeit mit der Plattform optimieren.
 
-Aufstellung der Module:
+## AuxData.ai Module
 
-- [AI Services](./functions/aiservice.md)
-- [Dokumentenleser](./functions/documentreader.md)
-- [Dokumenten DB](./functions/documentdb.md)
-- [MAIL IMAP / SMTP](./functions/mail.md)
-- [HTPP Aufrufe](./functions/http.md)
-- [Logging](./functions/logging.md)
-- [MS Graph API](./functions/msgraphapi.md)
-- [SQL Datenbanken anbinden](./functions/sql.md)
-- [Webcrawler](./functions/webcrawler.md)
-- [Wissensdatenbank](./functions/knowledgedb.md)
+| Name | Beschreibung | Detailinformationen |
+| ------ | ------ | ------ |
+| AI Services | Aufruf von AI Services | [AI Services](./functions/aiservice.md)|
+| Dokumentenleser | Liest Text aus Dokumenten aus |[Dokumentenleser](./functions/documentreader.md) |
+| Dokumenten DB | Organisationsspezifischer Speicher | [Dokumenten DB](./functions/documentdb.md) |
+| Mail (Imap / Smtp) | Mails auslesen und versenden | [MAIL IMAP / SMTP](./functions/mail.md) |
+| HTTP Rest | HTTP Aufrufe für REST Schnittstellen o.ä. | [HTPP Aufrufe](./functions/http.md) |
+| Logging | Loggingfunktionen innerhalb der Engine | [Logging](./functions/logging.md) |
+| MS Graph API | Zugriff auf die MS Graph API | [MS Graph API](./functions/msgraphapi.md) |
+| SQL | Zugriff auf externe SQL Datenbanken | [SQL Datenbanken anbinden](./functions/sql.md) |
+| Webcrawler | Zugriff auf den Webcrawler | [Webcrawler](./functions/webcrawler.md) |
+| Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
+
+## Weitere Informationen
+- [Umgebungsvariablen](./environmentvariables.md)
 - [Übergabe Objekte anlegen](./functions/createparameterobjects.md)
