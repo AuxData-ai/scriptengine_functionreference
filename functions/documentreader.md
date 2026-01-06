@@ -16,12 +16,13 @@ liest ein Dokument aus und liefert den Inhalt als string zurück.
 - Excel
 - Text
 - CSV
+- MarkDown
 - XML
 - JSON
 - JPEG
 - PNG
-- GIF?
-- TIFF?
+- EML (mit Attachments)
+- MSG (ohne Attachments)
 
 **Parameter:**
 

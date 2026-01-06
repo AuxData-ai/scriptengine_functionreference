@@ -21,9 +21,9 @@ Ausnahmen bilden reguläre Ausdrücke und zwar folgende Operatoren:
 \1    // Backreference (\1, \2, \3, ...), currently a parsing error
 ```
 
-Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Featrues integriert, die Funktionen der AuxData.ai Plattform in die ScriptEngine integrieren und die Zusammenarbeit mit der Plattform optimieren.
+Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integriert, die Funktionen der AuxData.ai Plattform in die ScriptEngine integrieren und die Zusammenarbeit mit der Plattform optimieren.
 
-Hier findest Du die Funktionen:
+Aufstellung der Module:
 
 - [AI Services](./functions/aiservice.md)
 - [Dokumentenleser](./functions/documentreader.md)

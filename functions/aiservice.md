@@ -1,11 +1,4 @@
----
-title: AI-Service Aufrufe
----
-
-
-
-
-## Integration in Scriptengine
+## AI-Service Modul
 
 `getModule("aiservice");`
 
@@ -16,12 +9,15 @@ title: AI-Service Aufrufe
 
 Diese Funktion ruft den übergebenen Service mit Token Authentifizierung auf.
 
-**Parameter:**
+<details><summary>Details</summary>
 
-- token: Das AccessToken, dass mit dem Aufruf verwendet werden soll.
-- agentId: Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.
-- serviceId: Die Id des Service, der aufgerufen werden soll.
-- params: Das Parameter
+**Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|token|string| Das AccessToken, dass mit dem Aufruf verwendet werden soll.|
+|agentId|number|Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.|
+|serviceId|number|Die Id des Service, der aufgerufen werden soll.|
+|params|Objekt Das Parameter Objekt|
 
 ```
 var params = new Object();
@@ -30,23 +26,32 @@ params.placeholder2 = "value2";
 params.placeholder3 = "value3";
 ```
 
-Verarbeitung des Rückgabewerts
+**Rückgabewert**
+Objekt
+
+**Verarbeitung des Rückgabewerts:**
 
 Besitzt der aufgerufen AI Service nur einen Prozessschritt. Kann das ergebnis des Prozessschritts mit folgendem Kommando abgerufen werden:
+
 `resultObj.MultiResults.Results[0].Result;`
 
 Das Ergebnis ist ein string.
+</details>
 
 ### `resultObj aiservice_runWithTokenAsync(token, agentId, serviceId, params);`
 
 Diese Funktion ruft den übergebenen Service mit Token Authentifizierung auf. Dies ist ein asnyhroner Aufruf, der im Hintergrund durchgeführt wird.
 
+<details><summary>Details</summary>
+
 **Parameter:**
 
-- token: Das AccessToken, dass mit dem Aufruf verwendet werden soll.
-- agentId: Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.
-- serviceId: Die Id des Service, der aufgerufen werden soll.
-- params: 
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|token|string| Das AccessToken, dass mit dem Aufruf verwendet werden soll.|
+|agentId|number|Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.|
+|serviceId|number|Die Id des Service, der aufgerufen werden soll.|
+|params|Objekt Das Parameter Objekt|
 
 ```
 var params = new Object();
@@ -55,18 +60,26 @@ params.placeholder2 = "value2";
 params.placeholder3 = "value3";
 ```
 
+**Rückgabewert**
+Objekt
+
 Da dieser AI-Service ansynchron aufgerufen wird, wird als Ergebnis nur ein leeres Ergebnisobjekt zurückgeschickt.   
+
 Ob der Service wirklich im Hintergrund aufgerufen wurde, kann über `resultObj.BackgroundMode` abgefragt werden. Dies ist ein Bool.
+</details>
 
 ### `resultObj aiservice_run(agentId, serviceId, params);`
 
 Diese Funktion ruft den übergebenen Service mit User Authentifizierung auf. Der aufrufende Anwender, muss berechtigt sein den AI-Service am Agenten aufzurufen. Ansonsten schlägt die Authentifizierung fehl. Der User wird intern ermittelt, so dass kein zusätzlicher Parameter übergeben werden muss.
 
-**Parameter:**
+<details><summary>Details</summary>
 
-- agentId: Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.
-- serviceId: Die Id des Service, der aufgerufen werden soll.
-- params: Ist ein zu erzeugendes Objekt, wo die Platzhalter befüllt werden müssen, die der aufzurufende AI-Service zur Bearbeitung benötigt.
+**Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|agentId|number|Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.|
+|serviceId|number|Die Id des Service, der aufgerufen werden soll.|
+|params|Objekt Das Parameter Objekt|
 
 ```
 var params = new Object();
@@ -75,22 +88,30 @@ params.placeholder2 = "value2";
 params.placeholder3 = "value3";
 ```
 
-**Verarbeitung des Rückgabewerts**
+**Rückgabewert**
+Objekt
 
-Besitzt der aufgerufen AI Service nur einen Prozessschritt. Kann das Ergebnis des Prozessschritts mit folgendem Kommando abgerufen werden:
+**Verarbeitung des Rückgabewerts:**
+
+Besitzt der aufgerufen AI Service nur einen Prozessschritt. Kann das ergebnis des Prozessschritts mit folgendem Kommando abgerufen werden:
+
 `resultObj.MultiResults.Results[0].Result;`
 
 Das Ergebnis ist ein string.
+</details>
 
 ### `resultObj aiservice_runAsync(agentId, serviceId, params);`
 
 Diese Funktion ruft den übergebenen Service mit User Authentifizierung auf. Der aufrufende Anwender, muss berechtigt sein den AI-Service am Agenten aufzurufen. Ansonsten schlägt die Authentifizierung fehl. Der User wird intern ermittelt, so dass kein zusätzlicher Parameter übergeben werden muss. Über diese Funktion wird der AI-Service asynchron aufgerufen. 
 
-**Parameter:**
+<details><summary>Details</summary>
 
-- agentId: Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.
-- serviceId: Die Id des Service, der aufgerufen werden soll.
-- params: Ist ein zu erzeugendes Objekt, wo die Platzhalter befüllt werden müssen, die der aufzurufende AI-Service zur Bearbeitung benötigt.
+**Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|agentId|number|Die Id des Agenten, in dem sich der aufzurufende AI Service befindet.|
+|serviceId|number|Die Id des Service, der aufgerufen werden soll.|
+|params|Objekt Das Parameter Objekt|
 
 ```
 var params = new Object();
@@ -99,10 +120,14 @@ params.placeholder2 = "value2";
 params.placeholder3 = "value3";
 ```
 
-**Verarbeitung des Rückgabewerts**
+**Rückgabewert**
+Objekt
 
+**Verarbeitung des Rückgabewerts:**
 Da dieser AI-Service ansynchron aufgerufen wird, wird als Ergebnis nur ein leeres Ergebnisobjekt zurückgeschickt.  
 Ob der Service wirklich im Hintergrund aufgerufen wurde, kann über `resultObj.BackgroundMode` abgefragt werden. Dies ist ein Bool.
+</details>
+
 
 ### Verarbeitung des Ergebnis Objekts
 
@@ -114,6 +139,7 @@ Besitzt der aufgerufen AI Service nur einen Prozessschritt. Kann das Ergebnis de
 #### Mehrere Prozessschritte im Ergebnis
 
 Beispiel Code zur Umwandlung eines AI-ServiceErgebnisses in einen Html Tabelle.
+
 
 ```
 getModule("log");
