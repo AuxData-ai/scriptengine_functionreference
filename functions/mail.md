@@ -1,3 +1,5 @@
+# Mail Modul (Imap + SMTP)
+
 ## Integration in ScriptEngine
 
 `getModule("email");`
@@ -14,7 +16,7 @@ sendet eine Mail per SMTP mit der übergebenen SMTP Konfiguration
 | smtpConfig | Objekt | Die Smtp Konfiguration, die herangezogen werden soll um die Mail zu versenden. |
 
 **Rückgabewert**
-Operation erfolgreich oder nicht
+bool - Operation erfolgreich oder nicht
 
 </details>
 

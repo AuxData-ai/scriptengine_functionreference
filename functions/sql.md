@@ -1,5 +1,6 @@
-## Integration in ScriptEngine
+# SQL Modul
 
+## Integration in ScriptEngine
 `getModule("sql");`
 
 ### `bool sql_execute(connectionConfig, sqlCommand)`
@@ -11,32 +12,14 @@ Führt ein Kommando zur Datenänderung aus(insert, update,...)
 
 **Parameter**
 
-<table>
-<tr>
-<th>Name</th>
-<th>Typ</th>
-<th>Beschreibung</th>
-</tr>
-<tr>
-<td>
-
-### `connectionConfig`
-</td>
-<td>Object</td>
-<td>Die Verbindungskonfiguration zur Datenbank</td>
-</tr>
-<tr>
-<td>
-
-### `sqlCommand`
-</td>
-<td>string</td>
-<td>Das auszuführende SQL Kommando</td>
-</tr>
-</table>
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|connectionConfig|Object|Die Verbindungskonfiguration zur Datenbank|
+|sqlCommand|string|Das auszuführende SQL Kommando|
 
 
-**Rückgabewert** bool true oder Fehlermeldung
+**Rückgabewert** 
+bool true oder Fehlermeldung
 
 </details>
 
@@ -49,32 +32,14 @@ Führt die Datenbankabfrage sqlCommand durch und liefert eine JSON Struktur mit 
 
 **Parameter**
 
-<table>
-<tr>
-<th>Name</th>
-<th>Typ</th>
-<th>Beschreibung</th>
-</tr>
-<tr>
-<td>
-
-### `connectionConfig`
-</td>
-<td>Objekt</td>
-<td>Das Connection Objekt um die Datenbankverbindung aufzubauen.</td>
-</tr>
-<tr>
-<td>
-
-### `sqlCommand`
-</td>
-<td>string</td>
-<td>Das SQL select Kommando</td>
-</tr>
-</table>
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|connectionConfig|Object|Die Verbindungskonfiguration zur Datenbank|
+|sqlCommand|string|Das auszuführende SQL Kommando|
 
 
-**Rückgabewert** todo
+**Rückgabewert** 
+bool true oder Fehlermeldung
 
 </details>
 
@@ -93,7 +58,8 @@ dbConnection["password"] = "root";
 ### Beispiel für Query
 
 ```
-getModule("sql"); getModule("log");
+getModule("sql"); 
+getModule("log");
 
 var dbConnection = new Object(); 
 dbConnection["driver"] = "mysql"; 

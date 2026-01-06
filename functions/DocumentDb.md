@@ -22,6 +22,8 @@ Lädt das Dokument mit der documentId aus der Datenbank und gibt es als string z
 **Rückgabewert**
 String
 
+Der Inhalt des geladenen Dokuments
+
 </details>
 
 
@@ -41,6 +43,8 @@ speichert das Dokument unter der angegebenen documentId. Ob das Speichern erfolg
 **Rückgabewert**
 bool
 
+Kennzeichen ob die Operation erfolgreich durchgeführt wurde.
+
 </details>
 
 
@@ -58,6 +62,8 @@ Löscht das Dokument unter der angegebenen documentId. Ob das Löschen erfolgrei
 
 **Rückgabewert**
 bool
+
+Kennzeichen ob die Operation erfolgreich durchgeführt wurde.
 
 </details>
 

@@ -1,10 +1,12 @@
+# Logging Modul
+
 ## Integration in ScriptEngine
 
 `getModule("log");`
 
 ## Funktionen
 
-### `string log_info(message)`
+### `void log_info(message)`
 Protokolliert eine Information
 <details><summary>Details</summary>
 
@@ -20,7 +22,7 @@ Protokolliert eine Information
 
 </details>
 
-### `string log_warn(message)`
+### `void log_warn(message)`
 Protokolliert eine Warnung.
 <details><summary>Details</summary>
 
@@ -35,7 +37,7 @@ Protokolliert eine Warnung.
 
 </details>
 
-### `string log_error(message)`
+### `void log_error(message)`
 Protokolliert einen Fehler
 <details><summary>Details</summary>
 
@@ -50,7 +52,7 @@ Protokolliert einen Fehler
 
 </details>
 
-### `string log_fatal(message)`
+### `void log_fatal(message)`
 Protokolliert einen schlimmen Fehler
 <details><summary>Details</summary>
 
@@ -70,6 +72,7 @@ liefert das Ergebnis des Loggings zurück.
 <details><summary>Details</summary>
 
 **Parameter**
+keine
 
 **Rückgabewert**
 Alle Loggingausgaben für die Funktion.

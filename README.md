@@ -27,7 +27,7 @@ Aufstellung der Module:
 
 - [AI Services](./functions/aiservice.md)
 - [Dokumentenleser](./functions/documentreader.md)
-- [Dokumenten DB](./functions/DocumentDb.md)
+- [Dokumenten DB](./functions/documentdb.md)
 - [MAIL IMAP / SMTP](./functions/mail.md)
 - [HTPP Aufrufe](./functions/http.md)
 - [Logging](./functions/logging.md)

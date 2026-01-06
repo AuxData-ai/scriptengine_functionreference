@@ -1,5 +1,6 @@
-## HTTP Modul
+# HTTP Modul
 
+## Initialisierung in der ScriptEngine
 `getModule("http");`
 
 ## Funktionen

@@ -1,3 +1,5 @@
+# Konwledge-DB Modul
+
 ## Integration in ScriptEngine
 
 `getModule("knowledgedb");`
@@ -6,7 +8,7 @@
 
 ### `string saveText(agentId, containerId, name, content, documentId)`
 
-todo
+Speichert ein Textdokument in der Wissensdatenbank. Das Textdokument wird nicht über die Reader ausgelesen, sondern direkt gechunkt und in die Wissensdatenbank hochgeladen werden.
 
 <details>
 <summary>Details</summary>
@@ -15,17 +17,22 @@ todo
 
 | Name | Typ | Beschreibung |
 |------|-----|--------------|
-|  |  |  |
-|  |  |  |
+| agentId | number | Die ID des Agent, in dem das Dokument gespeichert werden soll. |
+| containerId | number | Die ID des Containers, in dem das Dokument gespeichert werden soll. |
+| name | string | der Name des Dokuments |
+| content | string | der textuelle Inhalt des Dokuments |
+| documentId | string (uuid) | Soll ein bestehendes Dokument aktualisiert werden, so kann hier die DokumentenID übergeben werden. Ist der Wert ein Leerstring, wird automatisch ein neues Dokument angelegt. |
 
 
-**Rückgabewert** todo
+**Rückgabewert** 
+
+string die DokumentendId des Dokuments in dem der Text gespeichert wurde.
 
 </details>
 
 ### `string saveBinary(agentId, containerId, name, content, documentId)`
 
-todo
+speichert ein Binärdokument in der Wissensdatenbank. Der Content ist ein Base64 string, der an den internen Document Parser übergeben wird. Der DocumentParser liest die textuellen Inhalten aus dem Dokument aus. Handelt es sich um Dateiformate, welche über die Wissensdatenbankskonfiguration am Agent konfiguriert sind, werden die dort definierten Konfigurationen verwendet um das Dokument auszulesen (Computer Vision, Transkription).
 
 <details>
 <summary>Details</summary>
@@ -34,17 +41,22 @@ todo
 
 | Name | Typ | Beschreibung |
 |------|-----|--------------|
-|  |  |  |
-|  |  |  |
+| agentId | number | Die ID des Agent, in dem das Dokument gespeichert werden soll. |
+| containerId | number | Die ID des Containers, in dem das Dokument gespeichert werden soll. |
+| name | string | der Name des Dokuments. **Wichtig:** Es muss die Dateiendung mit übergeben werden, ansonsten kann die Plattform nicht auslesen um welches Dokumentenformat es sich handelt. |
+| content | string (bae64) | Der Inhalt des Dokuments als Base64 string |
+| documentId | string (uuid) | Soll ein bestehendes Dokument aktualisiert werden, so kann hier die DokumentenID übergeben werden. Ist der Wert ein Leerstring, wird automatisch ein neues Dokument angelegt. |
 
 
-**Rückgabewert** todo
+**Rückgabewert** 
+
+string die DokumentendId des Dokuments in dem der Text gespeichert wurde.
 
 </details>
 
 ### `string saveTextByToken(token, agentId, containerId, name, content, documentId)`
 
-todo
+Speichert ein Textdokument in der Wissensdatenbank. Das Textdokument wird nicht über die Reader ausgelesen, sondern direkt gechunkt und in die Wissensdatenbank hochgeladen werden.
 
 <details>
 <summary>Details</summary>
@@ -53,18 +65,23 @@ todo
 
 | Name | Typ | Beschreibung |
 |------|-----|--------------|
-|  |  |  |
-|  |  |  |
+| token | string | Ein spezielles Access Token, das übergeben wird um die Berechtigung zur Verarbeitung zu prüfen |
+| agentId | number | Die ID des Agent, in dem das Dokument gespeichert werden soll. |
+| containerId | number | Die ID des Containers, in dem das Dokument gespeichert werden soll. |
+| name | string | der Name des Dokuments |
+| content | string | der textuelle Inhalt des Dokuments |
+| documentId | string (uuid) | Soll ein bestehendes Dokument aktualisiert werden, so kann hier die DokumentenID übergeben werden. Ist der Wert ein Leerstring, wird automatisch ein neues Dokument angelegt. |
 
 
 **Rückgabewert** 
 
-string --\> Die DokumentenId
+string die DokumentendId des Dokuments in dem der Text gespeichert wurde.
+
 </details>
 
 ### `string saveBinaryByToken(token, agentId, containerId, name, content, documentId)`
 
-todo
+speichert ein Binärdokument in der Wissensdatenbank. Der Content ist ein Base64 string, der an den internen Document Parser übergeben wird. Der DocumentParser liest die textuellen Inhalten aus dem Dokument aus. Handelt es sich um Dateiformate, welche über die Wissensdatenbankskonfiguration am Agent konfiguriert sind, werden die dort definierten Konfigurationen verwendet um das Dokument auszulesen (Computer Vision, Transkription).
 
 <details>
 <summary>Details</summary>
@@ -73,25 +90,21 @@ todo
 
 | Name | Typ | Beschreibung |
 |------|-----|--------------|
-| token | string | Das Accesstoken entweder eines Users oder der externen Schnittstellenfreigabe |
-| agentId | int | Der Agent in dem das Dokument gespeichert werden soll |
-| containerId | int | Der Container in dem das Dokument gespeichert werden soll |
-| name | string | Der Name des Dokuments |
-| content | base64 string | Der base64 string des Dokuments |
-| documentId | string | die Id eines Dokuments, welches aktualisiert werden soll. falls es sich um einen leeren string handelt, wird ein neues Dokument angelegt. |
+| token | string | Ein spezielles Access Token, das übergeben wird um die Berechtigung zur Verarbeitung zu prüfen |
+| agentId | number | Die ID des Agent, in dem das Dokument gespeichert werden soll. |
+| containerId | number | Die ID des Containers, in dem das Dokument gespeichert werden soll. |
+| name | string | der Name des Dokuments. **Wichtig:** Es muss die Dateiendung mit übergeben werden, ansonsten kann die Plattform nicht auslesen um welches Dokumentenformat es sich handelt. |
+| content | string (bae64) | Der Inhalt des Dokuments als Base64 string |
+| documentId | string (uuid) | Soll ein bestehendes Dokument aktualisiert werden, so kann hier die DokumentenID übergeben werden. Ist der Wert ein Leerstring, wird automatisch ein neues Dokument angelegt. |
 
 
 **Rückgabewert** 
 
-<details>
-<summary>
-
-string --\> Die DokumentenId
-</summary></details>
+string die DokumentendId des Dokuments in dem der Text gespeichert wurde.
 
 </details>
 
-### `string find(searchText, agentId, coontainerId, qualityGate, resultlimit)`
+### `string[] find(searchText, agentId, coontainerId, qualityGate, resultlimit)`
 
 findet die Chunks in denen der Suchstring vorkommt. Die Suche findet zweistufig statt. Im ersten Schritt ist es eine semantische Suche. Wird die Anzahl der resultlimits nicht erreicht, wird die Suche um eine Stichwortsuche ergänzt um noch weitere Treffer zu finden.
 
@@ -116,7 +129,7 @@ findet die Chunks in denen der Suchstring vorkommt. Die Suche findet zweistufig 
 
 </details>
 
-### `string findByKeyword(searchText, agentId, coontainerId)`
+### `string[] findByKeyword(searchText, agentId, coontainerId)`
 
 sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine semantische Suhe durchgeführt. Die Treffer müssen eindeutige Teilstrings innerhalb des Textbausteins sein. Groß und Kleinschreibung wird hierbei ignoriert.
 
@@ -141,4 +154,3 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 </summary>
 Array von strings der Suchergebnisse
 </details>
-
