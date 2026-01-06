@@ -150,11 +150,6 @@ Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filt
 
 **Parameter**
 
-<details>
-<summary>Details</summary>
-
-**Parameter**
-
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
