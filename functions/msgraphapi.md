@@ -41,6 +41,7 @@ löscht eine Resource aus der MS Graph API (z.B. Datei im Sharepooint Ordner).
 
 **Rückgabewert**
 string - Der Response der GraphAPI.
+</details>
 
 ### `string graphapi_postResource(graphApiConfig, url, body)`
 
