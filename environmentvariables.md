@@ -15,13 +15,6 @@ Es gibt vordefinierte Umgebungsvariablen, die ein Admin über die Umgebungsvaria
 
 | Name der Umgebungsvariable | Typ | Beschreibung |
 | ------ | ------ | ------ |
-|timeout|int|Hier kann der timeout einer Funktion überschrieben werden. Der Wert wird als Sekunden übergeben. überschreitet die Dauer der Ausführung einer Funktion diesen Wert in Sekunden, so wird die Funktion abgebrochen. Wird dieser Wert nicht gesetzt, so wird der interne Wert von 600 Sekunden (10 Minuten) verwendet.
-
-Mit dieser Konfiguration können lang laufende Funktionen länger arbeiten. Dies ist vor allem dann sinnvoll, wenn es Funktionen sind die sehr viele Ai Services aufrufen oder sehr aufwendige AI Services aufrufen.
-
-Der Wert der Variable kann innerhalb einer Funktion nicht abgerufen werden. Der Wert des timeouts wird nicht an die Funktion weitergegeben.
-
-**Wichtig!**
-
+|timeout|int|Hier kann der timeout einer Funktion überschrieben werden. Der Wert wird als Sekunden übergeben. überschreitet die Dauer der Ausführung einer Funktion diesen Wert in Sekunden, so wird die Funktion abgebrochen. Wird dieser Wert nicht gesetzt, so wird der interne Wert von 600 Sekunden (10 Minuten) verwendet. Mit dieser Konfiguration können lang laufende Funktionen länger arbeiten. Dies ist vor allem dann sinnvoll, wenn es Funktionen sind die sehr viele Ai Services aufrufen oder sehr aufwendige AI Services aufrufen. Der Wert der Variable kann innerhalb einer Funktion nicht abgerufen werden. Der Wert des timeouts wird nicht an die Funktion weitergegeben. **Wichtig!**
 Der timeout kann nur an Funktionen gesetzt werden. Wird die timeout Variable an der Organisation gesetzt, wird dies ignoriert.
 |
