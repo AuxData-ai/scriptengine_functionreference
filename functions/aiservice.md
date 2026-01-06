@@ -1,5 +1,6 @@
-## AI-Service Modul
+# AI-Service Modul
 
+## Initialisierung in der ScriptEngine
 `getModule("aiservice");`
 
 ## Funktionen 

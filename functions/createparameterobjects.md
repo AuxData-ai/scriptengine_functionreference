@@ -1,4 +1,6 @@
-Die ScriptEngine unterstützt ECMAScript 5. Features von ECMA Script 6 (aktuelle Javascript Version) werden nicht unterstützt, somit können nicht alle modernen Features genutzt werden.
+# Hinweise zur Anlage von Objekten in der ScriptEngine
+
+Die ScriptEngine unterstützt ECMAScript 5. Features von ECMA Script 6 (aktuelle Javascript Version) werden nicht unterstützt, somit können nicht alle modernen Sprach-Features genutzt werden.
 
 Javascript Objekte können auf unterschiedliche Art und Weise in der ScriptEngine angelegt werden. Hier sind die unterstützten Möglichkeiten aufgeführt:
 
@@ -22,7 +24,6 @@ Server: "server",
 ```
 
 ## 3. Objekt mit Punktnotation
-
 
 ```
 var imap = new Object();

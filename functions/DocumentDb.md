@@ -1,33 +1,47 @@
----
-title: Document DB
----
+# DocumentDB Modul
 
-Die DocumentDb ist nicht zu verwechseln mit der KnowledgeDb. Die Dokument speichert Text zu einer ID in der Datenbank zu einer Organisation ab. Am ehesten gleicht sie dem localstorage in Webbrowsern. Es stehen drei Funktionen zur Verfügung um Dokumente zu speichern, laden oder zu löschen.
+Die DocumentDb ist nicht zu verwechseln mit der KnowledgeDb. Das DOkumentDB Modul speichert Text zu einer ID in der Datenbank zu einer Organisation ab. Am ehesten gleicht sie dem localstorage in Webbrowsern. Es stehen drei Funktionen zur Verfügung um Dokumente zu speichern, laden oder zu löschen.
 
-## Integration in ScriptEngine
+## Initialisierung in der ScriptEngine
 
-getModule("docdb");
+`getModule("docdb");`
 
 ## Funktionen
 
 ### `string docdb_load(documentId)`
 
-lädt das Dokument mit der documentId aus der Datenbank und gibt es als string zurück.
+Lädt das Dokument mit der documentId aus der Datenbank und gibt es als string zurück.
+
+<details><summary>Details</summary>
 
 **Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+| documentId | string |die Id des Dokuments|
 
-- documentId : string die Id des Dokuments
+**Rückgabewert**
+String
+
+</details>
+
 
 ### `bool docdb_save(documentId, document)`
 
 speichert das Dokument unter der angegebenen documentId. Ob das Speichern erfolgreich war, kann über den Rückgabewert ausgelesen werden.
 
 
+<details><summary>Details</summary>
+
 **Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|documentId|string | die Id des Dokuments|
+|document| string | das Textdokument |
 
-- documentId: string --> die Id des Dokuments
-- document: string --> das Textdokument 
+**Rückgabewert**
+bool
 
+</details>
 
 
 ### `bool docdb_delete(documentId)`
@@ -35,6 +49,15 @@ speichert das Dokument unter der angegebenen documentId. Ob das Speichern erfolg
 Löscht das Dokument unter der angegebenen documentId. Ob das Löschen erfolgreich war, kann über den Rückgabewert ausgelesen werden.
 
 
-**Parameter:**
+<details><summary>Details</summary>
 
-- documentId: string --> die Id des Dokuments
+**Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|documentId|string | die Id des Dokuments|
+
+**Rückgabewert**
+bool
+
+</details>
+
