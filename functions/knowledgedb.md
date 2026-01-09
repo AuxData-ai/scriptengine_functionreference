@@ -145,6 +145,7 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 | searchText | string | Der text nachdem gesucht werden  |
 | agentId | int | Der Agent in dem gesucht werden soll |
 | containerId | int | Die Id des Containers in dem gesucht werden soll. Falls 0, werden in allen Container des Agents gesucht. |
+| resultlimit | int | die maximale Anzahl an Ergebnissen |
 
 <details>
 <summary>
