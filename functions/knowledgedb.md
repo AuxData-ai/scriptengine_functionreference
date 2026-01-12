@@ -129,7 +129,7 @@ findet die Chunks in denen der Suchstring vorkommt. Die Suche findet zweistufig 
 
 </details>
 
-### `string[] findByKeyword(searchText, agentId, coontainerId)`
+### `string[] findByKeyword(searchText, agentId, coontainerId, resultlimit)`
 
 sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine semantische Suhe durchgeführt. Die Treffer müssen eindeutige Teilstrings innerhalb des Textbausteins sein. Groß und Kleinschreibung wird hierbei ignoriert.
 
