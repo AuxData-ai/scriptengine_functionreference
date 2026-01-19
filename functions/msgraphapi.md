@@ -177,7 +177,6 @@ verschiebt die Mail mit mailId in den Zielordner
 |destinationFolder|string|Der Name des ordners in den die Mail verschoben werden soll.|
 
 **Rückgabewert**
-
 bool ob die Aktion erfolgreich war.
 </details>
 
