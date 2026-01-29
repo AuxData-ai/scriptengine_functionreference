@@ -174,7 +174,7 @@ verschiebt die Mail mit mailId in den Zielordner
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
 |mailId|string| Die eindeutige Id der Mail|
-|destinationFolder|string|Der Name des ordners in den die Mail verschoben werden soll.|
+|destinationFolder|string|Der Name des Ordners in den die Mail verschoben werden soll. Es kann auch ein Pfad angegeben werden. Beispiel: Inbox.Wichtig|
 
 **Rückgabewert**
 bool ob die Aktion erfolgreich war.
