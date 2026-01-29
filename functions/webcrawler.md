@@ -45,3 +45,61 @@ Der Webcrawler interpretiert kein Javascript und liest nur HTML aus. Das bedeute
 string der Inhalt der gecrawltern Webseiten.
 
 </details>
+
+### `string webcrawler_liveSearch(prompt, maxPages, searchMode)`
+Durchsucht das Internet nach den Informationen aus dem Prompt. Hierbei wird der Prompt analysiert und in einen optimierten Suchstring für die Internetsuche umgewandelt. Die Such wird anschließend mit dem optimierten Prompt durchgeführt.
+
+Es existieren zwei Suchmodi:
+
+1 - Einfach: Dort wird die Suche durchgeführt und das Ergebnis der Suche zurückgeliefert. 
+2 - Erweitert: Dort werden die gefundenen Webseiten auf der Seite gecrawlt. Das Ergebnis ist der extrahierte Text aus all den Treffern.
+
+**Hinweis:**
+
+In der erweiterten Suche verwenden wir den Webcrawler. Der Webcrawler interpretiert kein Javascript und liest nur HTML aus. Das bedeutet, dass in Webseiten, die durch Javascript generiert werden keine Informationen gefunden werden.
+
+<details><summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+| prompt | string | Der User Prompt, der automatisch über ein LLM zu einem Suchstring umgewandelt wird. Mit dem umgewandelten Suchstring erfolgt dann die Live Internetsuche |
+| maxPages | number | Die maximale Anzahl an Suchergebnissen, die gefunden werden soll. |
+| searchMode | number | 1: Einfacher Suchmodus 2: Erweiterter Suchmodus |
+
+**Rückgabewert**
+string der gefundene Inhalt aus dem Internet.
+
+</details>
+
+### `string webcrawler_liveSearchOnPage(prompt, page, maxPages, searchMode)`
+Durchsucht das Internet nach den Informationen aus dem Prompt auf der konkret angegebenen Seite. Hierbei wird der Prompt analysiert und in einen optimierten Suchstring für die Internetsuche umgewandelt. Die Such wird anschließend mit dem optimierten Prompt durchgeführt.
+
+
+Es existieren zwei Suchmodi:
+
+1 - Einfach: Dort wird die Suche durchgeführt und das Ergebnis der Suche zurückgeliefert. 
+2 - Erweitert: Dort werden die gefundenen Webseiten auf der Seite gecrawlt. Das Ergebnis ist der extrahierte Text aus all den Treffern.
+
+**Hinweis:**
+
+Es werden nur Ergebnisse geliefert, die für den Suchstring auf der konkreten Seite gefunden wurden. Andere Seiten werden nicht berücksichtigt.
+
+In der erweiterten Suche verwenden wir den Webcrawler. Der Webcrawler interpretiert kein Javascript und liest nur HTML aus. Das bedeutet, dass in Webseiten, die durch Javascript generiert werden keine Informationen gefunden werden.
+
+<details><summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+| prompt | string | Der User Prompt, der automatisch über ein LLM zu einem Suchstring umgewandelt wird. Mit dem umgewandelten Suchstring erfolgt dann die Live Internetsuche |
+| page | string | Die konkrete Seite auf der die Suche ausgeführt werden soll. z.B. "wikipedia.de" |
+| maxPages | number | Die maximale Anzahl an Suchergebnissen, die gefunden werden soll. |
+| searchMode | number | 1: Einfacher Suchmodus 2: Erweiterter Suchmodus |
+
+**Rückgabewert**
+string der gefundene Inhalt aus dem Internet.
+
+</details>
