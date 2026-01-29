@@ -33,5 +33,3 @@ Hier sind die wichtigsten Informationen, die als User Objekt zurückgeliefert we
 | Role | number | Die Rolle des Anwenders die ihm zugeordnet ist. 1 = User, 2 = AgentAdmin, 3 = OrganisationAdmin |
 | Email | string | Die E-Mail Adresse des Users |
 </details>
-
-}
