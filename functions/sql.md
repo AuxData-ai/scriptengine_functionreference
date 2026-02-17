@@ -55,6 +55,15 @@ dbConnection["user"] = "root";
 dbConnection["password"] = "root";
 ```
 
+#### Mögliche Treiber (driver)
+
+| Name | Beschreibung |
+| ---- | ------------ |
+| mysql | MySQL oder MariaDB Datenbanken|
+| postgres | Postgres Datenbanken |
+| mssql | MS SQL Server Datenbanken |
+| oracle | Oracle Datenbanken |
+
 ### Beispiel für Query
 
 ```
