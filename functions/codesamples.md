@@ -58,3 +58,28 @@ smtp["SenderAddress"] = from;
 result = mail_send(mailObj, smtp)
 return result;
 ```
+
+## Internetreceherche mit Google
+
+```
+getModule("mail")
+var mailObj = new Object();
+var to = new Array();
+var from = "mail.werner.meyer@web.de";
+to.push(receiver);
+mailObj["From"] = from;
+mailObj["To"] = to;
+mailObj["Subject"] = subject;
+mailObj["Message"] = message;
+
+var smtp = new Object();
+smtp["User"] = smtp_user;
+smtp["Password"] = smtp_passwort;
+smtp["Smtpserver"] = smtp_server;
+smtp["Smtpport"] = parseInt(smtp_port);
+smtp["SenderAddress"] = from;
+
+
+result = mail_send(mailObj, smtp)
+return result;
+```
