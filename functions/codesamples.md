@@ -62,24 +62,56 @@ return result;
 ## Internetreceherche mit Google
 
 ```
-getModule("mail")
-var mailObj = new Object();
-var to = new Array();
-var from = "mail.werner.meyer@web.de";
-to.push(receiver);
-mailObj["From"] = from;
-mailObj["To"] = to;
-mailObj["Subject"] = subject;
-mailObj["Message"] = message;
+getModule("http");
+getModule("log");
 
-var smtp = new Object();
-smtp["User"] = smtp_user;
-smtp["Password"] = smtp_passwort;
-smtp["Smtpserver"] = smtp_server;
-smtp["Smtpport"] = parseInt(smtp_port);
-smtp["SenderAddress"] = from;
+function getLinks(jsonData, pageCount) {
+  // Überprüfe, ob das JSON-Objekt eine Eigenschaft "items" hat
+  if (jsonData.items) {
+    // Verwende die Methode "slice", um die ersten pagecount Elemente aus dem Array "items" herauszulesen
+    var websites = jsonData.items.slice(0, pageCount);
+    var links = new Array();
+    
+    log_info("found entries: " + websites.length);
+    log_info("pages to crawl count: " + pageCount);
+    
+    for (var pos = 0; pos < websites.length && pos < pageCount; pos++) {
+        var item = websites[pos];
+        log_info("found website " + item.link);
+        links.push(item.link);
+    }
+    
+    // Rückgabe der Links
+    return links;
+  } else {
+    // Wenn das JSON-Objekt keine Eigenschaft "items" hat, wird ein leerer Array zurückgegeben
+    return [];
+  }
+}
 
+log_info("Pages Parameter: " + pages);
+var pageCount = parseInt(pages);
+log_info("Extracted pageCount: " + pageCount);
 
-result = mail_send(mailObj, smtp)
+var webSearch = "https://www.googleapis.com/customsearch/v1?key=" + apikey + "&q=" + http_queryEscape("\""+ search + "\""); 
+
+log_info(webSearch);
+
+var result = "";
+
+if (webSearch != "") {
+    jsonString = http_get(webSearch, "");    
+    //log_info(jsonString);
+    jsonObj = JSON.parse(jsonString);
+    var links = getLinks(jsonObj, pageCount);
+
+    if (links != null) {
+        for (var pos = 0; pos < links.length; ++pos) {
+            log_info("Parse website " + links[pos]);
+             result += http_get(links[pos]);    + "\n";        
+        }
+    }
+}
+
 return result;
 ```
