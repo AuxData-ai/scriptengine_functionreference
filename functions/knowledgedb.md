@@ -123,11 +123,9 @@ findet die Chunks in denen der Suchstring vorkommt. Die Suche findet zweistufig 
 
 
 **Rückgabewert** 
-
-<details>
-<summary>Array von strings der Suchergebnisse</summary></details>
-
+Array von strings der Suchergebnisse
 </details>
+
 
 ### `string[] findByKeyword(searchText, agentId, coontainerId, resultlimit)`
 
