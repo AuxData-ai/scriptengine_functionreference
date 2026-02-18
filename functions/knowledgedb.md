@@ -136,7 +136,6 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 
 **Parameter**
 
-<details>
 
 | Name | Typ | Beschreibung |
 |------|-----|--------------|
@@ -145,6 +144,8 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 | containerId | int | Die Id des Containers in dem gesucht werden soll. Falls 0, werden in allen Container des Agents gesucht. |
 | resultlimit | int | die maximale Anzahl an Ergebnissen |
 
+**Rückgabewert** 
+Array von strings der Suchergebnisse
 </details>
 
 ## Code Beispiele
@@ -166,10 +167,4 @@ var document = "Base64_String";
 var docId = knowledgedb_saveBinary(agentId, containerId, "Test.pdf", document, "");
 return docId;
 ```
-<summary>
 
-**Rückgabewert** 
-
-</summary>
-Array von strings der Suchergebnisse
-</details>
