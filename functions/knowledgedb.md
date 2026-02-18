@@ -148,6 +148,26 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 | resultlimit | int | die maximale Anzahl an Ergebnissen |
 
 <details>
+
+## Code Beispiele
+
+### Textdokument in Wissensdatenbank speichern
+
+```
+getModule("knowledgedb");
+var document = "das ist ein Test";
+var docId = knowledgedb_saveText(agentId, containerId, "Test.txt", document, "");
+return docId;
+```
+
+### Binärdokument in Wissensdatenbank speichern
+
+```
+getModule("knowledgedb");
+var document = "Base64_String";
+var docId = knowledgedb_saveBinary(agentId, containerId, "Test.pdf", document, "");
+return docId;
+```
 <summary>
 
 **Rückgabewert** 
