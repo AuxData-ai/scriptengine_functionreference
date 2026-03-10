@@ -73,19 +73,45 @@ Die Variablen können an unterschiedlichen Stellen eingesetzt werden um Informat
 
 ### AI Workflow Prompts
 
-#### System Prompt
+#### Beschreibung der Rahmenbedinungen für die Ausführung des Prompts (System Prompt Ergänzung)
 
-#### Aufgaben Prompt
+Eingabe in diesem Bereich werden als Rahmenbedingungen für die Ausführung des Prompts deklariert und an das LLM Übergeben. Die dort verwendeten Variablen werden aufgelöst und durch den dahinterstehenden Text ersetzt.
 
-##### Suchprompt
+<img width="1617" height="823" alt="grafik" src="https://github.com/user-attachments/assets/c50ebda5-dce8-4107-baef-739a5d86d643" />
+
+#### Prompt
+
+Hier wird die tatsächlich Anweisung beschrieben, welche das KI Modell asuführen soll. Auch hier werden die ort verwendeten Variablen werden aufgelöst und durch den dahinterstehenden Text ersetzt.
+
+Beispiel mit Verwendung der Variable Task
+<img width="1630" height="840" alt="grafik" src="https://github.com/user-attachments/assets/0e2ea9bd-3e09-412a-a28d-ce73be90d1ab" />
+
+
+##### Nach welchen Informationen soll in der Wissensdatenbank und/oder in den Parametern gesucht werden? (Suchprompt)
+
+Hier werden Variablen verwendet um die Suche in der Wissensdatenbank durchzuführen. EIngaben in diesem Feld haben keine Auswirkung auf die Ausführung des Prompts sondern nur auf die Datenbeschaffung aus der Wissensdatenbank über die semantische Suche.
+
+<img width="1629" height="834" alt="grafik" src="https://github.com/user-attachments/assets/6c9be325-311d-4d12-8ffb-986df5f911c6" />
+
 
 ### Funktionsaufrufe
 
 Variable können als Aufrufparameter einer Funktion verwendet werden.
 
+In diesem Screenshot wird das Ergebnis der Funktion infoCrawler in der Variable info gespeichert (Da dies ein Eingabefeld ist, welches nur den Variablennamen erwartet müssen hier ${ und } weggelassen werden. 
+
+Die Funktion hat ebenfalls eine Variable search. In diesem Fall wird sie über ein Eingabefeld des AI Service befüllt.
+<img width="1627" height="859" alt="grafik" src="https://github.com/user-attachments/assets/dbc60fcb-3dcd-4176-8608-ca63ab2839ba" />
+
 ### HTTP Service Aufrufe
 
 Variablen können als Parameter in einem HTTP REST Service aufruf verwendet werden.
+
+In diesem Screenshot wird das Ergebnis der Google Suche in der Variable searchResult gespeichert (Da dies ein Eingabefeld ist, welches nur den Variablennamen erwartet müssen hier ${ und } weggelassen werden. 
+
+Die Goggle Suche hat ebenfalls eine Variable search. In diesem Fall wird sie über ein Eingabefeld des AI Service befüllt.
+<img width="1633" height="825" alt="grafik" src="https://github.com/user-attachments/assets/8c08a31e-564a-4de7-abc4-008f3951dfea" />
+
 
 ### MCP Service Aufrufe
 
