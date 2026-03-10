@@ -8,7 +8,8 @@ Eine Variable beginnt immer mit "${" und endet mit "}"
 Syntax:
 ${variableNname}
 
-Beispiel:
+**Beispiel:**
+
 ${myValue}
 
 Bei der Benennung der Variable gelten folgende Regeln:
@@ -27,7 +28,7 @@ Diese Variable hat das Ergebnis des vorhergehenden AI Serviceschritt enthalten.
 
 Einsatz in den Anweisungen: ${answer}
 
-Beispiel:
+**Beispiel:**
 
 Fasse mir folgenden Text zusammen:
 ${answer}
@@ -38,7 +39,7 @@ Diese Variable kann als mit 1 beginnendes Array verwendet werden. Das die Ergebn
 
 Einsatz der Anweisung ${result[<Prozessschritt Nr.>]} 
 
-Beispiel:
+**Beispiel:**
 
 Kombiniere folgende beiden Texte und generiere ein einheitliches Ergebnis.
 1. Text:
