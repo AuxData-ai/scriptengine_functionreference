@@ -39,5 +39,6 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
 
 ## Weitere Informationen
+- [Variablen](./variables.md)
 - [Umgebungsvariablen](./environmentvariables.md)
 - [Übergabe Objekte anlegen](./functions/createparameterobjects.md)
