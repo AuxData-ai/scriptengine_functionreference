@@ -17,6 +17,8 @@ Bei der Benennung der Variable gelten folgende Regeln:
 1. keine Leerzeichen
 2. Muss mit einem Buchstaben beginnen
 3. Kein Bindestrich
+4. keine Sonderzeichen
+5. Folgende Zeichen sind erlaubt: a-z, A-Z, 0-9, _
 
 ## Vordefinierte Variablen
 
