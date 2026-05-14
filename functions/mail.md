@@ -141,7 +141,7 @@ imap["Password"] = "pwd";
 imap["Server"] = "127.0.0.1";
 ```
 
-### Beispiel für ein MAil Objekt
+### Beispiel für ein Mail Objekt
 
 ```
 var mailObj = new Object();
@@ -152,4 +152,76 @@ mailObj["From"] = "sender@sender.de";
 mailObj["To"] = to;
 mailObj["Subject"] = "Das ist der Betreff";
 mailObj["Message"] = "Hallo wie geht es Dir?";
+```
+### Beispiel Code für das auslesen eines Mailpostfachs über IMAP
+```
+getModule("mail");
+getModule("log");
+getModule("aiservice");
+getModule("document");
+		
+var imap = new Object();
+imap["User"] = imap_user;
+imap["Password"] = imap_pwd;
+imap["Server"] = imap_server;
+
+var newMails = mail_getNewFromInbox(imap);
+
+log_info("Found "+ newMails.length + " unread mails.");
+
+if (newMails.length == 0) {
+    return "Keine neuen Mails in der Inbox gefunden";
+}
+
+for (var pos = 0; pos < newMails.length;pos++) {
+    
+    log_info("Reading Mail number " + pos);
+    var mail = newMails[pos];
+    
+    if (mail != null) {
+        var sender = mail.From;
+        log_info("Sender: " + sender);
+        
+        // read attachments
+        var attachments = mail.Attachments;
+        var messageContent = mail.Message;
+        
+        if (attachments != null && attachments != undefined ) {
+            var keys = Object.keys(attachments);
+            
+            messageContent += "Mail Anhänge:\n\n";
+            
+            log_info("Number of attachments found in Mail: " + keys.length);
+            
+            if (keys.length > 0) {
+                
+                for (keyPos = 0; keyPos < keys.length; ++keyPos) {
+                    log_info("Processing attachment numner: " + keyPos);
+                    var key = keys[keyPos];
+                    var value = attachments[key];
+                    
+                    log_info("Key found: " + key);
+                    log_info("Value found: " + value);
+                    messageContent += document_readText(agentId, key, value, true);
+                }
+            } else {
+                log_info("No attachment found in this mail from sender: " + sender);
+            }
+        
+        } else {
+            log_info("Attachments is null in this mail from sender: " + sender);
+        }
+        
+        
+        // Object for calling AI Service
+        var aiServiceObj = new Object();
+        aiServiceObj["message"] = messageContent;
+        aiServiceObj["sender"] = sender;
+        aiServiceObj["subject"] = mail.Subject;
+        
+        return messageContent;
+    }
+    
+    return "OK";
+}
 ```

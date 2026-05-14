@@ -123,11 +123,9 @@ findet die Chunks in denen der Suchstring vorkommt. Die Suche findet zweistufig 
 
 
 **Rückgabewert** 
-
-<details>
-<summary>Array von strings der Suchergebnisse</summary></details>
-
+Array von strings der Suchergebnisse
 </details>
+
 
 ### `string[] findByKeyword(searchText, agentId, coontainerId, resultlimit)`
 
@@ -138,7 +136,6 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 
 **Parameter**
 
-</details>
 
 | Name | Typ | Beschreibung |
 |------|-----|--------------|
@@ -147,11 +144,27 @@ sucht in der Wissensdatenbank nach dem expliziten Suchstring. Es wird keine sema
 | containerId | int | Die Id des Containers in dem gesucht werden soll. Falls 0, werden in allen Container des Agents gesucht. |
 | resultlimit | int | die maximale Anzahl an Ergebnissen |
 
-<details>
-<summary>
-
 **Rückgabewert** 
-
-</summary>
 Array von strings der Suchergebnisse
 </details>
+
+## Code Beispiele
+
+### Textdokument in Wissensdatenbank speichern
+
+```
+getModule("knowledgedb");
+var document = "das ist ein Test";
+var docId = knowledgedb_saveText(agentId, containerId, "Test.txt", document, "");
+return docId;
+```
+
+### Binärdokument in Wissensdatenbank speichern
+
+```
+getModule("knowledgedb");
+var document = "Base64_String";
+var docId = knowledgedb_saveBinary(agentId, containerId, "Test.pdf", document, "");
+return docId;
+```
+
