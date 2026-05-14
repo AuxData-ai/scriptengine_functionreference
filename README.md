@@ -33,7 +33,12 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Mail (Imap / Smtp) | Mails auslesen und versenden | [MAIL IMAP / SMTP](./functions/mail.md) |
 | HTTP Rest | HTTP Aufrufe für REST Schnittstellen o.ä. | [HTPP Aufrufe](./functions/http.md) |
 | Logging | Loggingfunktionen innerhalb der Engine | [Logging](./functions/logging.md) |
-| MS Graph API | Zugriff auf die MS Graph API | [MS Graph API](./functions/msgraphapi.md) |
+| MS Graph API | Zugriff auf die MS Graph API (Mail) | [MS Graph API](./functions/msgraphapi.md) |
+| MS Graph Calendar | Zugriff auf den MS Graph Kalender | [MS Graph Calendar](./functions/msgraphcalendar.md) |
+| Google Workspace — Mail | Gmail-Zugriff über die Google Workspace API | [Google Mail](./functions/googlemail.md) |
+| Google Workspace — Calendar | Google-Kalender-Zugriff | [Google Calendar](./functions/googlecalendar.md) |
+| Google Workspace — Drive | Google-Drive-Zugriff (Datei- und Ordner-Operationen, Export) | [Google Drive](./functions/googledrive.md) |
+| Google Workspace — Generic API | Generischer Bearer-Auth-Zugriff auf beliebige Google-APIs | [Google API](./functions/googleapi.md) |
 | SQL | Zugriff auf externe SQL Datenbanken | [SQL Datenbanken anbinden](./functions/sql.md) |
 | Webcrawler | Zugriff auf den Webcrawler | [Webcrawler](./functions/webcrawler.md) |
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
