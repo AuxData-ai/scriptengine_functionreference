@@ -55,15 +55,6 @@ dbConnection["user"] = "root";
 dbConnection["password"] = "root";
 ```
 
-#### Mögliche Treiber (driver)
-
-| Name | Beschreibung |
-| ---- | ------------ |
-| mysql | MySQL oder MariaDB Datenbanken|
-| postgres | Postgres Datenbanken |
-| mssql | MS SQL Server Datenbanken |
-| oracle | Oracle Datenbanken |
-
 ### Beispiel für Query
 
 ```
@@ -95,41 +86,6 @@ for (var pos = 0; pos < result.Data.length; ++pos) {
   }
 
   log_info(dataset);
-}
-
-return "OK";
-```
-
-### Beispiel für die Ausführung eines SQL Befehls, der Daten schreibt bzw. ändert.
-
-```
-
-getModule("sql");
-getModule("log");
-
-
-var dbConnection = new Object();
-dbConnection["driver"] = "mysql";
-dbConnection["dbname"] = "auxdata";
-dbConnection["host"] = "127.0.0.1";
-dbConnection["port"] = "3306";
-dbConnection["user"] = "root";
-dbConnection["password"] = "root";
-
-var result = sql_execute(dbConnection, "create table test (`id` VARCHAR(255) NOT NULL)");
-
-log_info(result);
-
-if (result) {
-    log_info("Tabelle Test angelegt");
-}
-
-result = sql_execute(dbConnection, "drop table test");
-
-log_info(result);
-
-if (result) {
-    log_info("Tabelle Test gelöscht");
 }
 
 return "OK";

@@ -17,3 +17,27 @@ Es gibt vordefinierte Umgebungsvariablen, die ein Admin über die Umgebungsvaria
 | ------ | ------ | ------ |
 |timeout|int|Hier kann der timeout einer Funktion überschrieben werden. Der Wert wird als Sekunden übergeben. überschreitet die Dauer der Ausführung einer Funktion diesen Wert in Sekunden, so wird die Funktion abgebrochen. Wird dieser Wert nicht gesetzt, so wird der interne Wert von 600 Sekunden (10 Minuten) verwendet. Mit dieser Konfiguration können lang laufende Funktionen länger arbeiten. Dies ist vor allem dann sinnvoll, wenn es Funktionen sind die sehr viele Ai Services aufrufen oder sehr aufwendige AI Services aufrufen. Der Wert der Variable kann innerhalb einer Funktion nicht abgerufen werden. Der Wert des timeouts wird nicht an die Funktion weitergegeben. **Wichtig!** Der timeout kann nur an Funktionen gesetzt werden. Wird die timeout Variable an der Organisation gesetzt, wird dies ignoriert.
 |
+
+## Ergebnisse vorheriger Workflow-Schritte (`aiserviceresults`)
+
+Wird eine Funktion als Prozessschritt eines AI-Workflows ausgeführt, stellt die Plattform die Ergebnisse aller vorhergehenden Schritte als globale Variable `aiserviceresults` zur Verfügung. Es ist kein `getModule(...)`-Aufruf nötig — die Variable ist in jeder Workflow-Funktion direkt verfügbar.
+
+| Eigenschaft | Wert |
+| ------ | ------ |
+| Typ | `Array<string>` oder `null` (falls die Funktion nicht innerhalb eines Workflows oder ohne vorhergehenden Schritt läuft) |
+| Reihenfolge | Chronologisch — `aiserviceresults[0]` enthält das Ergebnis des ältesten vorhergehenden Schritts, `aiserviceresults[aiserviceresults.length - 1]` das des direkt davorliegenden Schritts |
+| Inhalt | Jedes Element ist das `Result`-Feld des entsprechenden vorhergehenden AI-Service-Ergebnisses, als String |
+
+**Beispiel:**
+
+```javascript
+function executorFunctionWrapper() {
+    if (aiserviceresults === null) {
+        return "Kein vorheriger Schritt vorhanden";
+    }
+
+    // letztes vorheriges Ergebnis weiterverarbeiten
+    var letztesErgebnis = aiserviceresults[aiserviceresults.length - 1];
+    return "Vorheriges Ergebnis war: " + letztesErgebnis;
+}
+```

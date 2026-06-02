@@ -95,7 +95,23 @@ versendet eine Mail
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|mail|Objekt|Das zu versendende [Mail Objekt](#mail-objekt). `To`, `CC` und `BCC` werden als Empfänger gesetzt.|
 
+> **Hinweis zur Schreibweise:** Die Schlüssel des Mail-Objekts müssen exakt den Feldnamen entsprechen (`To`, `CC`, `BCC`, `Subject`, `Message`, …). Abweichende Schreibweisen (z. B. `cc` oder `bcc`) werden ohne Fehlermeldung ignoriert, sodass die betroffenen Empfänger nicht angeschrieben werden.
+
+**Beispiel**
+
+```javascript
+var mail = {
+    To:      ["empfaenger@example.com"],
+    CC:      ["kopie@example.com"],
+    BCC:     ["blindkopie@example.com"],
+    Subject: "Test",
+    Message: "Hallo",
+    Html:    false
+};
+graphapi_send(graphApiConfig, mail);
+```
 
 **Rückgabewert**
 bool - Flag ob Operation erfolgreich oder nicht
@@ -115,6 +131,19 @@ liest maxCount neue Mails aus der Inbox aus.
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
 |maxCount|number|Die maximale Anzahl an Ergebnissen. Limitiert auf 1000.|
+
+> **Hinweis zu Empfängern:** In den ausgelesenen Mails sind `To` und `CC` als String-Arrays befüllt. `BCC` ist bei empfangenen Mails immer leer, da die GraphApi BCC-Empfänger nicht zurückliefert.
+
+**Beispiel**
+
+```javascript
+var mails = graphapi_getNewFromInbox(graphApiConfig, 10);
+for (var i = 0; i < mails.length; i++) {
+    var to = mails[i].To;  // Array der To-Empfänger
+    var cc = mails[i].CC;  // Array der CC-Empfänger
+    // mails[i].BCC -> bei empfangenen Mails immer leer
+}
+```
 
 **Rückgabewert**
 
@@ -174,7 +203,7 @@ verschiebt die Mail mit mailId in den Zielordner
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
 |mailId|string| Die eindeutige Id der Mail|
-|destinationFolder|string|Der Name des Ordners in den die Mail verschoben werden soll. Es kann auch ein Pfad angegeben werden. Beispiel: Inbox.Wichtig|
+|destinationFolder|string|Der Name des ordners in den die Mail verschoben werden soll.|
 
 **Rückgabewert**
 bool ob die Aktion erfolgreich war.
@@ -238,6 +267,139 @@ Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
 Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
 </details>
 
+### `bool graphapi_setLabel(graphApiConfig, mailId, label)`
+
+Setzt die Outlook-Kategorie (Label) einer Mail. Vorhandene Kategorien werden überschrieben — die Mail trägt anschließend genau diese eine Kategorie.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|mailId|string|Die eindeutige Id der Mail|
+|label|string|Name der Outlook-Kategorie, die gesetzt werden soll. Darf nicht leer sein.|
+
+**Rückgabewert**
+
+Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+</details>
+
+### `bool graphapi_addLabel(graphApiConfig, mailId, label)`
+
+Fügt der Mail eine Outlook-Kategorie (Label) zusätzlich hinzu. Vorhandene Kategorien bleiben erhalten. Ist die Kategorie bereits gesetzt, ist der Aufruf ein No-op (Vergleich case-sensitive).
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|mailId|string|Die eindeutige Id der Mail|
+|label|string|Name der Outlook-Kategorie, die hinzugefügt werden soll. Darf nicht leer sein.|
+
+**Rückgabewert**
+
+Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+</details>
+
+### `bool graphapi_removeLabel(graphApiConfig, mailId, label)`
+
+Entfernt eine Outlook-Kategorie (Label) von der Mail. Andere Kategorien bleiben erhalten. Ist die angegebene Kategorie nicht gesetzt, ist der Aufruf ein No-op und gibt erfolgreich zurück.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|mailId|string|Die eindeutige Id der Mail|
+|label|string|Name der Outlook-Kategorie, die entfernt werden soll. Darf nicht leer sein.|
+
+**Rückgabewert**
+
+Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+</details>
+
+### `string[] graphapi_getLabels(graphApiConfig, mailId)`
+
+Liest die gesetzten Outlook-Kategorien (Labels) einer Mail aus. Gegenstück zu `setLabel`/`addLabel`/`removeLabel`. Hinweis: Bei Mails, die über `getNewFromInbox`/`getNewFromFolder`/`getByCriteria` geladen wurden, sind die Labels bereits im Feld `Labels` des Mail-Objekts enthalten — diese Funktion wird nur benötigt, wenn lediglich die `mailId` vorliegt.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|mailId|string|Die eindeutige Id der Mail (MailServerId).|
+
+**Rückgabewert**
+
+string[] - Die Liste der gesetzten Outlook-Kategorien (Labels). Hat die Mail keine Kategorien, wird ein leeres Array zurückgegeben.
+</details>
+
+### `string graphapi_findFolderId(graphApiConfig, folderPath)`
+
+Löst einen punktseparierten Ordner-Pfad (z.B. `"Posteingang.Info"`) zur entsprechenden Folder-ID auf. Das erste Segment ist der Top-Level-Ordner, weitere Segmente werden als Unterordner aufgelöst.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|folderPath|string|Der Folder-Pfad mit `.` als Trennzeichen (z.B. `"Posteingang.Info"`). Erstes Segment = Top-Level-Ordner, weitere Segmente = Unterordner.|
+
+**Rückgabewert**
+string - Die eindeutige ID des Folders. Wird ein Segment des Pfades nicht gefunden, wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+
+</details>
+
+### `MailFolderInfo[] graphapi_listFolders(graphApiConfig)`
+
+Liefert alle Mail-Folder des Postfachs rekursiv als flache Liste in Depth-First-Reihenfolge (Eltern vor Kindern). Jeder Eintrag enthält die Folder-ID, den Anzeigenamen und den vollständigen Pfad in Punktnotation. Bekannte Einschränkung: pro Ebene werden maximal 999 Folder ausgelesen.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+
+**Rückgabewert**
+Array von MailFolderInfo-Objekten (siehe unten). Bei leerem Postfach: leeres Array. Bei API-Fehlern wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+
+</details>
+
+### `MailFolderInfo Objekt`
+
+Das Ergebnis-Objekt eines einzelnen Folders aus `graphapi_listFolders`.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|Id|string|Die eindeutige MS-Graph-Folder-ID. Direkt nutzbar für andere graphapi_*-Funktionen.|
+|DisplayName|string|Der Anzeigename des Folders.|
+|Path|string|Der vollständige Pfad vom Root mit `.` als Trennzeichen (z.B. `"Posteingang.Info"`). Konsistent zu graphapi_findFolderId.|
+
+</details>
+
 ### `GraphApiConfig Objekt`
 
 Das Konfigurationsobjekt für den GraphApi Zugriff
@@ -268,7 +430,9 @@ Das Mailobjekt das an die GraphApi gesendet wird oder von dieser als Ergebnis zu
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 |From|string|Der Absender der Mail|
-|To|string[]|Die Empfägner der Mail|
+|To|string[]|Die Empfänger der Mail. Wird beim Auslesen von Mails automatisch befüllt.|
+|CC|string[]|Die CC-Empfänger der Mail. Wird beim Versenden berücksichtigt und beim Auslesen von Mails automatisch befüllt.|
+|BCC|string[]|Die BCC-Empfänger der Mail. Wird beim Versenden berücksichtigt. Beim Auslesen empfangener Mails nicht verfügbar, da die GraphApi BCC-Empfänger nicht zurückliefert.|
 |Subject|string|Der Betreff der Mail|
 |Message|string|Die Nachricht der Mail|
 |Attachments|map[string] string |Die Anhänge der Mail Key = Dateiname; value = base64 Inhalt|
@@ -278,5 +442,6 @@ Das Mailobjekt das an die GraphApi gesendet wird oder von dieser als Ergebnis zu
 |Html|bool|Kennzeichen ob die Nachricht als HTML Dokument vorliegt|
 |MailServerId|string|Die eindeutige Id der Mail, die zur Bearbeitung in der GraphApi verwendet werden muss.|
 |IsRead|bool|Kennzeichen ob die Mail bereits gelesen wurde.|
+|Labels|string[]|Die gesetzten Outlook-Kategorien (Labels) der Mail. Wird beim Auslesen von Mails automatisch befüllt.|
 
 </details>

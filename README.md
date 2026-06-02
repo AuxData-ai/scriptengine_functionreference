@@ -42,8 +42,9 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | SQL | Zugriff auf externe SQL Datenbanken | [SQL Datenbanken anbinden](./functions/sql.md) |
 | Webcrawler | Zugriff auf den Webcrawler | [Webcrawler](./functions/webcrawler.md) |
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
+| Organisation | Lese-Zugriff auf die Organisations- und Connector-Konfiguration | [Organisation](./functions/organisation.md) |
+| User | Lese-Zugriff auf den aktuellen Benutzer | [User](./functions/user.md) |
 
 ## Weitere Informationen
-- [Variablen](./variables.md)
 - [Umgebungsvariablen](./environmentvariables.md)
 - [Übergabe Objekte anlegen](./functions/createparameterobjects.md)
