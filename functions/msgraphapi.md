@@ -269,7 +269,7 @@ Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
 
 ### `bool graphapi_setLabel(graphApiConfig, mailId, label)`
 
-Setzt die Outlook-Kategorie (Label) einer Mail. Vorhandene Kategorien werden überschrieben — die Mail trägt anschließend genau diese eine Kategorie.
+Setzt die Outlook-Kategorie (Label) einer Mail. Vorhandene Kategorien werden überschrieben — die Mail trägt anschließend genau diese eine Kategorie. Existiert die Kategorie noch nicht in der Master Category List (MCL) des Users, wird sie automatisch dort angelegt (best effort, mit einer aus dem Namen abgeleiteten Farbe). Dadurch wird die Kategorie in Outlook — auch im Posteingang — zuverlässig angezeigt. Schlägt das Anlegen fehl (z.B. fehlende Berechtigung `MailboxSettings.ReadWrite`), wird die Kategorie dennoch gesetzt und der Fehler nur protokolliert.
 
 <details>
 <summary>Details</summary>
@@ -289,7 +289,7 @@ Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
 
 ### `bool graphapi_addLabel(graphApiConfig, mailId, label)`
 
-Fügt der Mail eine Outlook-Kategorie (Label) zusätzlich hinzu. Vorhandene Kategorien bleiben erhalten. Ist die Kategorie bereits gesetzt, ist der Aufruf ein No-op (Vergleich case-sensitive).
+Fügt der Mail eine Outlook-Kategorie (Label) zusätzlich hinzu. Vorhandene Kategorien bleiben erhalten. Ist die Kategorie bereits gesetzt, ist der Aufruf ein No-op (Vergleich case-sensitive). Existiert die Kategorie noch nicht in der Master Category List (MCL) des Users, wird sie automatisch dort angelegt (best effort, mit einer aus dem Namen abgeleiteten Farbe). Dadurch wird die Kategorie in Outlook — auch im Posteingang — zuverlässig angezeigt. Schlägt das Anlegen fehl (z.B. fehlende Berechtigung `MailboxSettings.ReadWrite`), wird die Kategorie dennoch gesetzt und der Fehler nur protokolliert.
 
 <details>
 <summary>Details</summary>
@@ -344,6 +344,59 @@ Liest die gesetzten Outlook-Kategorien (Labels) einer Mail aus. Gegenstück zu `
 **Rückgabewert**
 
 string[] - Die Liste der gesetzten Outlook-Kategorien (Labels). Hat die Mail keine Kategorien, wird ein leeres Array zurückgegeben.
+</details>
+
+### `bool graphapi_ensureCategory(graphApiConfig, name, color)`
+
+Stellt sicher, dass eine Kategorie in der Master Category List (MCL) des Users existiert. Fehlt sie, wird sie angelegt; existiert sie bereits, ist der Aufruf ein No-op (case-sensitiver Namensvergleich). Wird benötigt, damit Outlook die Kategorie — insbesondere im Posteingang — farbig anzeigt. Erfordert die Berechtigung `MailboxSettings.ReadWrite` (Application).
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|name|string|Name der Kategorie, die in der MCL sichergestellt werden soll. Darf nicht leer sein.|
+|color|string|Outlook-Farbe (`"none"`, `"preset0"` … `"preset24"`). Bei leerem String (`""`) wird eine deterministische, aus dem Namen abgeleitete Preset-Farbe vergeben.|
+
+**Rückgabewert**
+
+bool - `true` bei Erfolg. Bei API-Fehlern wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+</details>
+
+### `MasterCategory[] graphapi_getMasterCategories(graphApiConfig)`
+
+Liest die Master Category List (MCL) des Users — alle dort definierten Kategorien mit Namen und Farbe. Erfordert mindestens `MailboxSettings.Read` (Application).
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+
+**Rückgabewert**
+
+Array von MasterCategory-Objekten (siehe unten). Ist die MCL leer: leeres Array. Bei API-Fehlern wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+</details>
+
+### `MasterCategory Objekt`
+
+Das Ergebnis-Objekt eines einzelnen MCL-Eintrags aus `graphapi_getMasterCategories`.
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|Name|string|Anzeigename der Kategorie.|
+|Color|string|Outlook-Farbe der Kategorie (`"none"`, `"preset0"` … `"preset24"`).|
 </details>
 
 ### `string graphapi_findFolderId(graphApiConfig, folderPath)`
@@ -429,7 +482,8 @@ Das Mailobjekt das an die GraphApi gesendet wird oder von dieser als Ergebnis zu
 
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
-|From|string|Der Absender der Mail|
+|From|string|Die E-Mail-Adresse des Absenders der Mail|
+|FromName|string|Der Anzeigename des Absenders (wie in Outlook angezeigt). Wird beim Auslesen von Mails automatisch befüllt, sofern der Absender einen Anzeigenamen gesetzt hat – andernfalls leer.|
 |To|string[]|Die Empfänger der Mail. Wird beim Auslesen von Mails automatisch befüllt.|
 |CC|string[]|Die CC-Empfänger der Mail. Wird beim Versenden berücksichtigt und beim Auslesen von Mails automatisch befüllt.|
 |BCC|string[]|Die BCC-Empfänger der Mail. Wird beim Versenden berücksichtigt. Beim Auslesen empfangener Mails nicht verfügbar, da die GraphApi BCC-Empfänger nicht zurückliefert.|

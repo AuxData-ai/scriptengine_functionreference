@@ -2,7 +2,7 @@
 
 Das Organisation-Modul stellt die komplette Konfiguration der ausführenden Organisation lesend zur Verfügung. Es eignet sich besonders für den direkten Zugriff auf Connector-Konfigurationen (Microsoft Graph, Teams Bot) ohne zusätzliche Umgebungsvariablen.
 
-Modul-Name für `getModule()`: `"organisation"`
+Modul-Name für `getModule("organisation")`
 
 ## Funktionen
 
@@ -29,7 +29,6 @@ Modul-Name für `getModule()`: `"organisation"`
 | `TeamsBotConfig.MsAppId` | string | Teams App Id |
 | `TeamsBotConfig.MsAppPassword` | string | Teams App Password |
 
-Eine vollständige Liste aller Felder findet sich im Go-Quellcode unter `backend/domain/organisation.go`.
 
 ## Beispiel
 

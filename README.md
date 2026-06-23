@@ -44,6 +44,8 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
 | Organisation | Lese-Zugriff auf die Organisations- und Connector-Konfiguration | [Organisation](./functions/organisation.md) |
 | User | Lese-Zugriff auf den aktuellen Benutzer | [User](./functions/user.md) |
+| HeyGen | KI-Video-Übersetzung über die HeyGen-API | [HeyGen](./functions/heygen.md) |
+| Teams Bot | Proaktive Teams-Chat-Nachrichten an Benutzer | [Teams Bot](./functions/teamsbot.md) |
 
 ## Weitere Informationen
 - [Umgebungsvariablen](./environmentvariables.md)

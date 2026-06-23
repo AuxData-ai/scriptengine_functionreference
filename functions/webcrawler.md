@@ -45,3 +45,22 @@ Der Webcrawler interpretiert kein Javascript und liest nur HTML aus. Das bedeute
 string der Inhalt der gecrawltern Webseiten.
 
 </details>
+
+### `string webcrawler_htmlToText(html)`
+
+Extrahiert aus einem übergebenen HTML-String den lesbaren Text und gibt ihn als leicht strukturierten Markdown-Text zurück. Alles, was kein lesbarer Text ist (HTML-Tags, `<script>`, `<style>`, `<head>`, `<noscript>`, Kommentare, Attribute), wird entfernt. Überschriften, Listen, Tabellen und Links bleiben als Markdown erhalten.
+
+Im Gegensatz zu `webcrawler_crawlWeb` wird **keine** URL aufgerufen — die Funktion verarbeitet ausschließlich den übergebenen HTML-Text.
+
+<details><summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+| html | string | Der HTML-Text, aus dem der lesbare Text extrahiert werden soll. |
+
+**Rückgabewert**
+string — der extrahierte Markdown-Text.
+
+</details>
