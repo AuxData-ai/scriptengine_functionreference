@@ -170,7 +170,7 @@ Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus.
 Array von Mails, die gefunden wurden.
 </details>
 
-### `mail[] graphapi_getByCriteria(graphApiConfig, folderId, filter, maxCount)`
+### `mail[] graphapi_getByCriteria(graphApiConfig, filter, folderId, maxCount)`
 
 Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filterkriterien erfüllen
 
@@ -182,8 +182,8 @@ Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filt
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
-|folderId|string| Die ID des Mail Ordners. Diese kann über den GraphExplorer abgefragt werden Posteingang = "inbox" https://developer.microsoft.com/en-us/graph/graph-explorer|
 |filter|string|Der Filter nach graphAPI Nomenklatur Beispiel: isRead ne true (ungelesene E-Mails)|
+|folderId|string| Die ID des Mail Ordners. Diese kann über den GraphExplorer abgefragt werden Posteingang = "inbox" https://developer.microsoft.com/en-us/graph/graph-explorer|
 |maxCount|number|Die maximale Anzahl an Ergebnissen. Limitiert auf 1000.|
 
 **Rückgabewert**
