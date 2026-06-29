@@ -172,8 +172,6 @@ Array von Mails, die gefunden wurden.
 
 ### `mail[] graphapi_getByCriteria(graphApiConfig, filter, folderId, maxCount)`
 
-Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filterkriterien erfüllen.
-
 > **Hinweis:** Die Reihenfolge ist `filter` **vor** `folderId` — abweichend von `googlemail_getByCriteria` (dort zuerst der Ordner). Das Datum im Filter im UTC-Format mit `Z` angeben (z. B. `receivedDateTime ge 2026-06-24T00:00:00Z`).
 
 <details>
