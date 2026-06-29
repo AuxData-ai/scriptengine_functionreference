@@ -67,3 +67,55 @@ Kennzeichen ob die Operation erfolgreich durchgeführt wurde.
 
 </details>
 
+## Stichwortsuche
+
+Es gibt zwölf Suchfunktionen: drei Modi (exakt, alle Wörter, mindestens ein
+Wort) jeweils für Key und Value, jeweils als case-sensitive und
+case-insensitive Variante. Alle geben ein Array von Objekten mit den
+Eigenschaften `key` und `value` zurück (leeres Array, wenn nichts gefunden
+wird). Die Suche ist organisationsweit.
+
+**Modi**
+
+- **Exakt** (`...Exact`): Key bzw. Value ist gleich dem Suchstring.
+- **Alle Wörter** (`...AllWords`): Jedes Wort des Suchstrings (an Leerzeichen
+  zerlegt) kommt als Teilstring vor (UND-Verknüpfung).
+- **Mindestens ein Wort** (`...AnyWord`): Mindestens ein Wort kommt als
+  Teilstring vor (ODER-Verknüpfung).
+
+Funktionen ohne Suffix `IgnoreCase` sind case-sensitive, Funktionen mit Suffix
+`IgnoreCase` ignorieren Groß-/Kleinschreibung.
+
+| Funktion | Feld | Modus | Case |
+| ------ | ------ | ------ | ------ |
+| `docdb_searchKeyExact(s)` | Key | exakt | sensitiv |
+| `docdb_searchKeyExactIgnoreCase(s)` | Key | exakt | insensitiv |
+| `docdb_searchValueExact(s)` | Value | exakt | sensitiv |
+| `docdb_searchValueExactIgnoreCase(s)` | Value | exakt | insensitiv |
+| `docdb_searchKeyAllWords(s)` | Key | alle Wörter | sensitiv |
+| `docdb_searchKeyAllWordsIgnoreCase(s)` | Key | alle Wörter | insensitiv |
+| `docdb_searchValueAllWords(s)` | Value | alle Wörter | sensitiv |
+| `docdb_searchValueAllWordsIgnoreCase(s)` | Value | alle Wörter | insensitiv |
+| `docdb_searchKeyAnyWord(s)` | Key | mind. ein Wort | sensitiv |
+| `docdb_searchKeyAnyWordIgnoreCase(s)` | Key | mind. ein Wort | insensitiv |
+| `docdb_searchValueAnyWord(s)` | Value | mind. ein Wort | sensitiv |
+| `docdb_searchValueAnyWordIgnoreCase(s)` | Value | mind. ein Wort | insensitiv |
+
+**Parameter:**
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+| s | string | der Suchstring |
+
+**Rückgabewert**
+Array von Objekten `{ key: string, value: string }`
+
+**Beispiel**
+
+```js
+getModule("docdb");
+var hits = docdb_searchValueAllWordsIgnoreCase("rechnung 2026");
+for (var i = 0; i < hits.length; i++) {
+    log_info(hits[i].key + " => " + hits[i].value);
+}
+```
+

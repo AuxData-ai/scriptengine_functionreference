@@ -170,9 +170,11 @@ Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus.
 Array von Mails, die gefunden wurden.
 </details>
 
-### `mail[] graphapi_getByCriteria(graphApiConfig, folderId, filter, maxCount)`
+### `mail[] graphapi_getByCriteria(graphApiConfig, filter, folderId, maxCount)`
 
-Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filterkriterien erfüllen
+Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filterkriterien erfüllen.
+
+> **Hinweis:** Die Reihenfolge ist `filter` **vor** `folderId` — abweichend von `googlemail_getByCriteria` (dort zuerst der Ordner). Das Datum im Filter im UTC-Format mit `Z` angeben (z. B. `receivedDateTime ge 2026-06-24T00:00:00Z`).
 
 <details>
 <summary>Details</summary>
@@ -182,9 +184,57 @@ Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filt
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|filter|string|Der Filter nach graphAPI Nomenklatur Beispiel: isRead ne true (ungelesene E-Mails). Datumswerte im UTC-Format mit `Z`, z. B. `receivedDateTime ge 2026-06-24T00:00:00Z and receivedDateTime le 2026-06-24T23:59:59Z`.|
 |folderId|string| Die ID des Mail Ordners. Diese kann über den GraphExplorer abgefragt werden Posteingang = "inbox" https://developer.microsoft.com/en-us/graph/graph-explorer|
-|filter|string|Der Filter nach graphAPI Nomenklatur Beispiel: isRead ne true (ungelesene E-Mails)|
 |maxCount|number|Die maximale Anzahl an Ergebnissen. Limitiert auf 1000.|
+
+**Beispiele für Filter**
+
+| Ziel | Filter |
+| ------ | ------ |
+| Ungelesene Mails | `isRead ne true` |
+| Mails eines Tages | `receivedDateTime ge 2026-06-24T00:00:00Z and receivedDateTime le 2026-06-24T23:59:59Z` |
+| Mails eines Absenders | `startswith(from/emailAddress/address, 'max@firma.de')` |
+
+> **Absender-Filter — `startswith` statt `eq`:** Microsoft Graph liefert bei `from/emailAddress/address eq '…'` häufig **null Treffer**, obwohl passende Mails existieren (bekanntes serverseitiges Graph-Verhalten). Verwende stattdessen `startswith(from/emailAddress/address, '…')` mit der vollständigen Adresse — das wirkt wie ein exakter Treffer, nutzt aber den Operator, den Graph zuverlässig auswertet.
+
+> **Empfänger-Filter:** Das Filtern nach `toRecipients`/`ccRecipients` über `$filter` ist bei Graph unzuverlässig (liefert oft Fehler oder keine Treffer) und wird von dieser Funktion nicht zuverlässig unterstützt.
+
+> **Sortierung:** Standardmäßig werden die Treffer nach `receivedDateTime` absteigend (neueste zuerst) sortiert. Bei Filtern auf `from`, `toRecipients` oder `ccRecipients` lehnt Graph diese Sortierung ab ("The restriction or sort order is too complex to evaluate."); für diese Filter wird daher **ohne** feste Sortierung abgefragt.
+
+**Rückgabewert**
+Array von Mails, die gefunden wurden.
+</details>
+
+### `mail[] graphapi_searchMails(graphApiConfig, searchTerm, folderId, maxCount)`
+
+Volltextsuche über die Nachrichten eines Ordners. Im Gegensatz zu `getByCriteria` (das nur `$filter` nutzt und den Body **nicht** durchsuchen kann) verwendet diese Funktion Graphs `$search` und durchsucht standardmäßig u. a. **Betreff und Body** (sowie Absender und Empfänger).
+
+<details>
+<summary>Details</summary>
+
+**Parameter**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
+|searchTerm|string|Der Suchbegriff. Eine einfache Phrase durchsucht Betreff, Body, Absender und Empfänger. Gezielt sind auch KQL-Eigenschaften möglich, z. B. `subject:Rechnung` oder `body:Vertrag`. Die Anführungszeichen um den Suchwert setzt die Funktion selbst.|
+|folderId|string|Die ID des Mail Ordners (Posteingang = "inbox").|
+|maxCount|number|Die maximale Anzahl an Ergebnissen. Limitiert auf 1000.|
+
+**Beispiele**
+
+```javascript
+// Volltextsuche in Betreff + Body
+var mails = graphapi_searchMails(graphConfig, "Rechnung März", "inbox", 100);
+
+// gezielt nur im Betreff
+var betreff = graphapi_searchMails(graphConfig, "subject:Angebot", "inbox", 100);
+```
+
+> **Sortierung:** `$search` lässt sich nicht mit `$orderby` kombinieren — Graph liefert die Treffer nach **Relevanz** sortiert, nicht nach Datum.
+
+> **`$search` vs. `$filter`:** Für exakte Kriterien (ungelesen, Datum, Absender) nutze `getByCriteria`. Für eine Textsuche im Mailinhalt nutze `searchMails`. Beides gleichzeitig (Suche **und** Filter) unterstützt Graph für Mails nicht.
 
 **Rückgabewert**
 Array von Mails, die gefunden wurden.
@@ -230,7 +280,7 @@ bool ob die Aktion erfolgreich war.
 
 ### `bool graphapi_createDraft(graphApiConfig, mail)`
 
-Erzeugt einen E-Mail Entwurf im Postfach. Ist die MailId richtig gesetzt, wird dies automatisch zu einer Antwort-Mail.
+Erzeugt einen E-Mail Entwurf im Postfach. Ist im Mail-Objekt eine `MailServerId` (Id einer bestehenden Nachricht) gesetzt, wird der Entwurf automatisch als Antwort auf diese Nachricht angelegt. Ohne `MailServerId` wird ein komplett neuer Entwurf (mit `Subject`, `Message`, `To`/`CC`/`BCC`) im Drafts-Ordner erstellt.
 
 <details>
 <summary>Details</summary>
@@ -240,7 +290,7 @@ Erzeugt einen E-Mail Entwurf im Postfach. Ist die MailId richtig gesetzt, wird d
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 |graphApiConfig|Objekt|Die Konfiguration für den GraphApi Zugriff, die für die Durchführung von graphApi Calls notwendig sind.|
-|mail|Objekt|Das Mail Objekt. Die MailId muss so gesetzt werden, dass sie als Antwortentwurf zu einer bestehenden Mail verwendet werden kann.|
+|mail|Objekt|Das Mail Objekt. Optional kann `MailServerId` auf die Id einer bestehenden Nachricht gesetzt werden, um einen Antwortentwurf zu erzeugen; ist sie leer/ungesetzt, wird ein neuer Entwurf aus `Subject`, `Message` und den Empfängerfeldern erstellt.|
 
 **Rückgabewert**
 
