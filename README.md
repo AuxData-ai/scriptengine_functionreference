@@ -31,7 +31,7 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Dokumentenleser | Liest Text aus Dokumenten aus |[Dokumentenleser](./functions/documentreader.md) |
 | Dokumenten DB | Organisationsspezifischer Speicher | [Dokumenten DB](./functions/documentdb.md) |
 | Mail (Imap / Smtp) | Mails auslesen und versenden | [MAIL IMAP / SMTP](./functions/mail.md) |
-| HTTP Rest | HTTP Aufrufe für REST Schnittstellen o.ä. | [HTPP Aufrufe](./functions/http.md) |
+| HTTP Rest | HTTP Aufrufe für REST Schnittstellen o.ä. | [HTTP Aufrufe](./functions/http.md) |
 | Logging | Loggingfunktionen innerhalb der Engine | [Logging](./functions/logging.md) |
 | MS Graph API | Zugriff auf die MS Graph API (Mail) | [MS Graph API](./functions/msgraphapi.md) |
 | MS Graph Calendar | Zugriff auf den MS Graph Kalender | [MS Graph Calendar](./functions/msgraphcalendar.md) |
