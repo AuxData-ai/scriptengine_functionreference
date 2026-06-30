@@ -67,8 +67,8 @@ Protokolliert einen schlimmen Fehler
 
 </details>
 
-### `string log_logs()`
-liefert das Ergebnis des Loggings zurück.
+### `string log_logs`
+enthält das Ergebnis des Loggings zurück.
 <details><summary>Details</summary>
 
 **Parameter**
