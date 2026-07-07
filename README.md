@@ -43,7 +43,7 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Webcrawler | Zugriff auf den Webcrawler | [Webcrawler](./functions/webcrawler.md) |
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
 | Organisation | Lese-Zugriff auf die Organisations- und Connector-Konfiguration | [Organisation](./functions/organisation.md) |
-| User | Lese-Zugriff auf den aktuellen Benutzer | [Persönliche WissensDB](./functions/personalknowledgedb) |
+| User | Lese-Zugriff auf den aktuellen Benutzer | [Persönliche WissensDB](./functions/personalknowledgedb.md) |
 | Persönliche WissensDB | Lese-Zugriff auf den aktuellen Benutzer | [User](./functions/user.md) |
 | Teams Bot | Proaktive Teams-Chat-Nachrichten an Benutzer | [Teams Bot](./functions/teamsbot.md) |
 | Caller | Informationen zum aufrufenden Agenten und Servicce. | [Caller](./functions/caller.md) | 
