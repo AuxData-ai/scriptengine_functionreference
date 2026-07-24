@@ -549,3 +549,35 @@ Das Mailobjekt das an die GraphApi gesendet wird oder von dieser als Ergebnis zu
 |Labels|string[]|Die gesetzten Outlook-Kategorien (Labels) der Mail. Wird beim Auslesen von Mails automatisch befüllt.|
 
 </details>
+
+### Beispielcode Credential Microsoft365 laden
+
+**Beispielcode, wie man die Credentials für Microsoft365 Funktionen über die Microsoft Konnektor Konfiguration generieren kann:**
+
+Das ist ein ECMAScript Beispielcode um aus der Konfiguration von AuxData die Mcirosoft365 Konnektor Information zu laden und daraus ein graphcredentials Objekt zu generieren mit dem aktuellen User
+```
+getModule("organisation");
+getModule("user");
+
+function getGraphCredentials() {
+    
+    var mailAddress = getMailAddress();
+    var org = organisation_getOrganisation();
+    
+    var credentials = {
+        TenantId: org.ADConfig.MsGraphTenantId,
+        ClientId: org.ADConfig.MsgraphClientId,
+        ClientSecret: org.ADConfig.MsgraphClientSecret,
+        Account: mailAddress
+    };
+    
+    return credentials;
+}
+
+function getMailAddress() {
+    var mailAddress = "";
+    var currentUser = user_getUser();    
+     mailAddress = currentUser.Email;
+    return mailAddress;
+}
+```
