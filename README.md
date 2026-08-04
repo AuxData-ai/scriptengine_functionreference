@@ -33,7 +33,7 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Dokumentenleser | Liest Text aus Dokumenten aus |[Dokumentenleser](./functions/documentreader.md) |
 | Dokumenten DB | Organisationsspezifischer Speicher | [Dokumenten DB](./functions/documentdb.md) |
 | Mail (Imap / Smtp) | Mails auslesen und versenden | [MAIL IMAP / SMTP](./functions/mail.md) |
-| HTTP Rest | HTTP Aufrufe für REST Schnittstellen o.ä. | [HTPP Aufrufe](./functions/http.md) |
+| HTTP Rest | HTTP Aufrufe für REST Schnittstellen o.ä. | [HTTP Aufrufe](./functions/http.md) |
 | Logging | Loggingfunktionen innerhalb der Engine | [Logging](./functions/logging.md) |
 | MS Graph API | Zugriff auf die MS Graph API (Mail) | [MS Graph API](./functions/msgraphapi.md) |
 | MS Graph Calendar | Zugriff auf den MS Graph Kalender | [MS Graph Calendar](./functions/msgraphcalendar.md) |
@@ -46,7 +46,8 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Webcrawler | Zugriff auf den Webcrawler | [Webcrawler](./functions/webcrawler.md) |
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
 | Organisation | Lese-Zugriff auf die Organisations- und Connector-Konfiguration | [Organisation](./functions/organisation.md) |
-| User | Lese-Zugriff auf den aktuellen Benutzer | [User](./functions/user.md) |
+| User | Lese-Zugriff auf den aktuellen Benutzer | [Persönliche WissensDB](./functions/personalknowledgedb.md) |
+| Persönliche WissensDB | Lese-Zugriff auf den aktuellen Benutzer | [User](./functions/user.md) |
 | HeyGen | KI-Video-Übersetzung über die HeyGen-API | [HeyGen](./functions/heygen.md) |
 | Webhook | Parameter-Vertrag für Webhook-getriggerte Functions | [Webhook](./functions/webhook.md) |
 | Teams Bot | Proaktive Teams-Chat-Nachrichten an Benutzer | [Teams Bot](./functions/teamsbot.md) |
