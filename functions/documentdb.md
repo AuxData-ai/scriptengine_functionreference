@@ -67,6 +67,31 @@ Kennzeichen ob die Operation erfolgreich durchgeführt wurde.
 
 </details>
 
+
+### `string[] docdb_keys()`
+
+Gibt alle Keys zurück, die aktuell im Key Value Store der Organisation gespeichert sind.
+
+<details><summary>Details</summary>
+
+**Parameter:** keine
+
+**Rückgabewert**
+string[]
+
+Liste aller gespeicherten Keys (leeres Array, wenn der Store leer ist).
+
+**Beispiel:**
+```js
+getModule("docdb");
+var keys = docdb_keys();
+for (var i = 0; i < keys.length; i++) {
+    log(keys[i] + " = " + docdb_load(keys[i]));
+}
+```
+
+</details>
+
 ## Stichwortsuche
 
 Es gibt zwölf Suchfunktionen: drei Modi (exakt, alle Wörter, mindestens ein

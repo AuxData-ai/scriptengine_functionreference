@@ -4,7 +4,7 @@ Speichert Dokumente in der **persönlichen Wissensdatenbank** des ausführenden 
 und durchsucht sie semantisch. Im Gegensatz zur Agent-Wissensdatenbank gibt es weder
 `agentId` noch `containerId` — alle Funktionen sind user-scoped.
 
-**Quota:** maximal 100 Dokumente, maximal 500 MB pro Datei.
+**Quota:** maximal 100 Dokumente, maximal 1 GB pro Datei.
 **Pipeline:** Chunking + Embedding. Kein Context-Enrichment, kein LightRAG, keine
 Bild-Extraktion (im Unterschied zur Agent-Wissensdatenbank).
 

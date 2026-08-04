@@ -2,7 +2,7 @@
 
 ## Integration in ScriptEngine
 
-`getModule("email");`
+`getModule("mail");`
 
 ### `bool send(mail, smtpConfig)`
 sendet eine Mail per SMTP mit der übergebenen SMTP Konfiguration

@@ -4,6 +4,10 @@
 ## Integration in ScriptEngine
 `getModule("graphcalendar");`
 
+## Benötigte Berechtigungen (Microsoft 365 / Entra ID)
+
+Das Modul verwendet App-only Application-Berechtigungen einer Entra-ID-App-Registrierung (tenantId/clientId/clientSecret/account via `graphApiConfig`); jede Funktion listet unten ihre konkret benötigte Berechtigung auf, fehlende Berechtigungen führen zu HTTP 403, und alle Berechtigungen benötigen Admin Consent.
+
 ## Funktionen
 
 ### `string graphcalendar_findCalendarByName(graphApiConfig, name)`
@@ -22,6 +26,8 @@ Sucht den Kalender des Accounts mit dem angegebenen Anzeigenamen und liefert des
 
 **Rückgabewert**
 string - Die eindeutige Id des Kalenders. Bei einer leeren Id („") werden in den anderen Funktionen die Methoden gegen den Standard-Kalender des Accounts ausgeführt.
+
+**Benötigte Berechtigung (Application):** `Calendars.Read`
 
 </details>
 
@@ -44,6 +50,8 @@ Liefert alle Termine des Kalenders im angegebenen Zeitfenster (inklusive aufgel�
 **Rückgabewert**
 Array von Event Objekten.
 
+**Benötigte Berechtigung (Application):** `Calendars.Read`
+
 </details>
 
 ### `event graphcalendar_getEventById(graphApiConfig, calendarId, eventId)`
@@ -63,6 +71,8 @@ Liest einen einzelnen Termin anhand seiner Id.
 
 **Rückgabewert**
 Ein Event Objekt.
+
+**Benötigte Berechtigung (Application):** `Calendars.Read`
 
 </details>
 
@@ -86,6 +96,8 @@ Liefert die freien Zeitfenster im angegebenen Zeitraum, die mindestens `minutes`
 **Rückgabewert**
 Array von Slot Objekten.
 
+**Benötigte Berechtigung (Application):** `Calendars.Read`
+
 </details>
 
 ### `slot[] graphcalendar_findMeetingTimes(graphApiConfig, attendees, fromIso, toIso, minutes)`
@@ -108,6 +120,8 @@ Liefert MS-Graph-Vorschläge für gemeinsame Meeting-Zeiten der angegebenen Teil
 **Rückgabewert**
 Array von Slot Objekten inklusive `Confidence` (0–100) und der berücksichtigten Teilnehmer.
 
+**Benötigte Berechtigung (Application):** `Calendars.Read`
+
 </details>
 
 ### `string graphcalendar_createEvent(graphApiConfig, calendarId, event)`
@@ -127,6 +141,8 @@ Legt einen neuen Termin im Kalender an. Ist `event.OnlineMeeting` gesetzt, gener
 
 **Rückgabewert**
 string - Die Id des neu angelegten Termins.
+
+**Benötigte Berechtigung (Application):** `Calendars.ReadWrite`
 
 </details>
 
@@ -149,6 +165,8 @@ Aktualisiert einen bestehenden Termin. Es werden alle gesetzten Felder des `even
 **Rückgabewert**
 bool - Kennzeichen ob die Aktion erfolgreich war.
 
+**Benötigte Berechtigung (Application):** `Calendars.ReadWrite`
+
 </details>
 
 ### `bool graphcalendar_deleteEvent(graphApiConfig, calendarId, eventId)`
@@ -168,6 +186,8 @@ Löscht einen Termin.
 
 **Rückgabewert**
 bool - Kennzeichen ob die Aktion erfolgreich war.
+
+**Benötigte Berechtigung (Application):** `Calendars.ReadWrite`
 
 </details>
 
@@ -190,6 +210,8 @@ Sagt eine Termineinladung zu.
 **Rückgabewert**
 bool - Kennzeichen ob die Aktion erfolgreich war.
 
+**Benötigte Berechtigung (Application):** `Calendars.ReadWrite`
+
 </details>
 
 ### `bool graphcalendar_declineEvent(graphApiConfig, eventId, comment, sendResponse)`
@@ -211,6 +233,8 @@ Lehnt eine Termineinladung ab.
 **Rückgabewert**
 bool - Kennzeichen ob die Aktion erfolgreich war.
 
+**Benötigte Berechtigung (Application):** `Calendars.ReadWrite`
+
 </details>
 
 ### `bool graphcalendar_tentativelyAcceptEvent(graphApiConfig, eventId, comment, sendResponse)`
@@ -231,6 +255,8 @@ Sagt eine Termineinladung mit Vorbehalt zu.
 
 **Rückgabewert**
 bool - Kennzeichen ob die Aktion erfolgreich war.
+
+**Benötigte Berechtigung (Application):** `Calendars.ReadWrite`
 
 </details>
 

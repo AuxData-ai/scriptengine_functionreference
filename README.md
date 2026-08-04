@@ -28,6 +28,8 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Name | Beschreibung | Detailinformationen |
 | ------ | ------ | ------ |
 | AI Services | Aufruf von AI Services | [AI Services](./functions/aiservice.md)|
+| Functions | Andere Functions der Organisation aufrufen (per ID, Name oder Wrapper) | [Functions aufrufen](./functions/functioncalls.md)|
+| MCP-Server | Aufruf von MCP-Server-Tools der Organisation | [MCP-Server](./functions/mcp.md)|
 | Dokumentenleser | Liest Text aus Dokumenten aus |[Dokumentenleser](./functions/documentreader.md) |
 | Dokumenten DB | Organisationsspezifischer Speicher | [Dokumenten DB](./functions/documentdb.md) |
 | Mail (Imap / Smtp) | Mails auslesen und versenden | [MAIL IMAP / SMTP](./functions/mail.md) |
@@ -35,6 +37,7 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Logging | Loggingfunktionen innerhalb der Engine | [Logging](./functions/logging.md) |
 | MS Graph API | Zugriff auf die MS Graph API (Mail) | [MS Graph API](./functions/msgraphapi.md) |
 | MS Graph Calendar | Zugriff auf den MS Graph Kalender | [MS Graph Calendar](./functions/msgraphcalendar.md) |
+| MS Graph Planner | Zugriff auf Microsoft Planner (Task Boards, Pläne, Buckets, Aufgaben) | [MS Graph Planner](./functions/msgraphplanner.md) |
 | Google Workspace — Mail | Gmail-Zugriff über die Google Workspace API | [Google Mail](./functions/googlemail.md) |
 | Google Workspace — Calendar | Google-Kalender-Zugriff | [Google Calendar](./functions/googlecalendar.md) |
 | Google Workspace — Drive | Google-Drive-Zugriff (Datei- und Ordner-Operationen, Export) | [Google Drive](./functions/googledrive.md) |
@@ -44,8 +47,9 @@ Zusätzlich zu den Standardfunktionen haben wir einige zusätzliche Module integ
 | Wissensdatenbank | Zugriff auf die WissensDB und KI basierter Suche | [Wissensdatenbank](./functions/knowledgedb.md) |
 | Organisation | Lese-Zugriff auf die Organisations- und Connector-Konfiguration | [Organisation](./functions/organisation.md) |
 | User | Lese-Zugriff auf den aktuellen Benutzer | [User](./functions/user.md) |
+| HeyGen | KI-Video-Übersetzung über die HeyGen-API | [HeyGen](./functions/heygen.md) |
+| Webhook | Parameter-Vertrag für Webhook-getriggerte Functions | [Webhook](./functions/webhook.md) |
 | Teams Bot | Proaktive Teams-Chat-Nachrichten an Benutzer | [Teams Bot](./functions/teamsbot.md) |
-| Caller | Informationen zum aufrufenden Agenten und Servicce. | [Caller](./functions/caller.md) | 
 
 ## Weitere Informationen
 - [Umgebungsvariablen](./environmentvariables.md)

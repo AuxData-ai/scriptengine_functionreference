@@ -4,6 +4,9 @@
 ## Integration in ScriptEngine
 `getModule("graphapi");`
 
+## Benötigte Berechtigungen (Microsoft 365 / Entra ID)
+Das Modul greift ausschließlich über App-only *Application*-Berechtigungen einer Entra-ID-App-Registrierung (TenantId/ClientId/ClientSecret/Account via `graphApiConfig`) auf Microsoft 365 zu; die jeweils benötigte Berechtigung ist bei jeder Funktion unten angegeben, fehlende Berechtigungen führen zu HTTP 403, und alle erfordern Admin Consent.
+
 ## Funktionen
 
 ### `string graphapi_getResource(graphApiConfig, url)`
@@ -23,6 +26,8 @@ fragt eine Resource aus der MS Graph API an.
 **Rückgabewert**
 string - Der Response der GraphAPI.
 
+**Benötigte Berechtigung (Application):** Hängt von der aufgerufenen Ressource ab (die für die Ziel-URL passende Graph-Berechtigung, z. B. `Mail.Read`, `Files.Read.All`, `Sites.Read.All`)
+
 </details>
 
 ### `string graphapi_deleteResource(graphApiConfig, url)`
@@ -41,6 +46,9 @@ löscht eine Resource aus der MS Graph API (z.B. Datei im Sharepooint Ordner).
 
 **Rückgabewert**
 string - Der Response der GraphAPI.
+
+**Benötigte Berechtigung (Application):** Hängt von der aufgerufenen Ressource ab (passende `*.ReadWrite`-Berechtigung der Ziel-URL)
+
 </details>
 
 ### `string graphapi_postResource(graphApiConfig, url, body)`
@@ -61,6 +69,8 @@ legt eine neue Resource in der MS Graph API an.
 **Rückgabewert**
 string - Der Response der GraphAPI.
 
+**Benötigte Berechtigung (Application):** Hängt von der aufgerufenen Ressource ab (passende `*.ReadWrite`-Berechtigung der Ziel-URL)
+
 </details>
 
 ### `string graphapi_putResource(graphApiConfig, url, body)`
@@ -80,6 +90,8 @@ aktualisiert eine Resource in der MS Graph API.
 
 **Rückgabewert**
 string - Der Response der GraphAPI.
+
+**Benötigte Berechtigung (Application):** Hängt von der aufgerufenen Ressource ab (passende `*.ReadWrite`-Berechtigung der Ziel-URL)
 
 </details>
 
@@ -116,6 +128,8 @@ graphapi_send(graphApiConfig, mail);
 **Rückgabewert**
 bool - Flag ob Operation erfolgreich oder nicht
 
+**Benötigte Berechtigung (Application):** `Mail.Send`
+
 </details>
 
 ### `mail[] graphapi_getNewFromInbox(graphApiConfig, maxCount)`
@@ -149,6 +163,9 @@ for (var i = 0; i < mails.length; i++) {
 
 </summary>
  Array von Mails, die gefunden wurden.
+
+**Benötigte Berechtigung (Application):** `Mail.Read`
+
 </details>
 
 ### `mail[] graphapi_getNewFromFolder(graphApiConfig, folderId, maxCount)`
@@ -168,11 +185,14 @@ Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus.
 
 **Rückgabewert**
 Array von Mails, die gefunden wurden.
+
+**Benötigte Berechtigung (Application):** `Mail.Read`
+
 </details>
 
 ### `mail[] graphapi_getByCriteria(graphApiConfig, filter, folderId, maxCount)`
 
-Lies maxCount Mails aus, die dem Filterkriterium entsprechen.
+Liest maxCount neue Mails aus einem Ordner des Mailaccounts aus, welche die Filterkriterien erfüllen.
 
 > **Hinweis:** Die Reihenfolge ist `filter` **vor** `folderId` — abweichend von `googlemail_getByCriteria` (dort zuerst der Ordner). Das Datum im Filter im UTC-Format mit `Z` angeben (z. B. `receivedDateTime ge 2026-06-24T00:00:00Z`).
 
@@ -204,6 +224,9 @@ Lies maxCount Mails aus, die dem Filterkriterium entsprechen.
 
 **Rückgabewert**
 Array von Mails, die gefunden wurden.
+
+**Benötigte Berechtigung (Application):** `Mail.Read`
+
 </details>
 
 ### `mail[] graphapi_searchMails(graphApiConfig, searchTerm, folderId, maxCount)`
@@ -238,6 +261,9 @@ var betreff = graphapi_searchMails(graphConfig, "subject:Angebot", "inbox", 100)
 
 **Rückgabewert**
 Array von Mails, die gefunden wurden.
+
+**Benötigte Berechtigung (Application):** `Mail.Read`
+
 </details>
 
 ### `bool graphapi_move(graphApiConfig, mailId, destinationFolder)`
@@ -257,6 +283,9 @@ verschiebt die Mail mit mailId in den Zielordner
 
 **Rückgabewert**
 bool ob die Aktion erfolgreich war.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite`
+
 </details>
 
 ### `bool graphapi_delete(graphApiConfig, mailId)`
@@ -275,6 +304,8 @@ löscht die Mail mit der entsprechenden ID.
 
 **Rückgabewert**
 bool ob die Aktion erfolgreich war.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite`
 
 </details>
 
@@ -295,6 +326,9 @@ Erzeugt einen E-Mail Entwurf im Postfach. Ist im Mail-Objekt eine `MailServerId`
 **Rückgabewert**
 
 Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite`
+
 </details>
 
 ### `bool graphapi_changeReadState(graphApiConfig, mailId, readState)`
@@ -315,6 +349,9 @@ Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
 **Rückgabewert**
 
 Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite`
+
 </details>
 
 ### `bool graphapi_setLabel(graphApiConfig, mailId, label)`
@@ -335,6 +372,9 @@ Setzt die Outlook-Kategorie (Label) einer Mail. Vorhandene Kategorien werden üb
 **Rückgabewert**
 
 Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite` (Kategorie-Neuanlage zusätzlich `MailboxSettings.ReadWrite`)
+
 </details>
 
 ### `bool graphapi_addLabel(graphApiConfig, mailId, label)`
@@ -355,6 +395,9 @@ Fügt der Mail eine Outlook-Kategorie (Label) zusätzlich hinzu. Vorhandene Kate
 **Rückgabewert**
 
 Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite` (Kategorie-Neuanlage zusätzlich `MailboxSettings.ReadWrite`)
+
 </details>
 
 ### `bool graphapi_removeLabel(graphApiConfig, mailId, label)`
@@ -375,6 +418,9 @@ Entfernt eine Outlook-Kategorie (Label) von der Mail. Andere Kategorien bleiben 
 **Rückgabewert**
 
 Kennzeichen ob Aktion erfolgreich ausgeführt wurde.
+
+**Benötigte Berechtigung (Application):** `Mail.ReadWrite`
+
 </details>
 
 ### `string[] graphapi_getLabels(graphApiConfig, mailId)`
@@ -394,6 +440,9 @@ Liest die gesetzten Outlook-Kategorien (Labels) einer Mail aus. Gegenstück zu `
 **Rückgabewert**
 
 string[] - Die Liste der gesetzten Outlook-Kategorien (Labels). Hat die Mail keine Kategorien, wird ein leeres Array zurückgegeben.
+
+**Benötigte Berechtigung (Application):** `Mail.Read`
+
 </details>
 
 ### `bool graphapi_ensureCategory(graphApiConfig, name, color)`
@@ -414,6 +463,9 @@ Stellt sicher, dass eine Kategorie in der Master Category List (MCL) des Users e
 **Rückgabewert**
 
 bool - `true` bei Erfolg. Bei API-Fehlern wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+
+**Benötigte Berechtigung (Application):** `MailboxSettings.ReadWrite`
+
 </details>
 
 ### `MasterCategory[] graphapi_getMasterCategories(graphApiConfig)`
@@ -432,6 +484,9 @@ Liest die Master Category List (MCL) des Users — alle dort definierten Kategor
 **Rückgabewert**
 
 Array von MasterCategory-Objekten (siehe unten). Ist die MCL leer: leeres Array. Bei API-Fehlern wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+
+**Benötigte Berechtigung (Application):** `MailboxSettings.Read`
+
 </details>
 
 ### `MasterCategory Objekt`
@@ -466,6 +521,8 @@ Löst einen punktseparierten Ordner-Pfad (z.B. `"Posteingang.Info"`) zur entspre
 **Rückgabewert**
 string - Die eindeutige ID des Folders. Wird ein Segment des Pfades nicht gefunden, wird ein Fehler geworfen, der im Skript abgefangen werden kann.
 
+**Benötigte Berechtigung (Application):** `Mail.Read`
+
 </details>
 
 ### `MailFolderInfo[] graphapi_listFolders(graphApiConfig)`
@@ -483,6 +540,8 @@ Liefert alle Mail-Folder des Postfachs rekursiv als flache Liste in Depth-First-
 
 **Rückgabewert**
 Array von MailFolderInfo-Objekten (siehe unten). Bei leerem Postfach: leeres Array. Bei API-Fehlern wird ein Fehler geworfen, der im Skript abgefangen werden kann.
+
+**Benötigte Berechtigung (Application):** `Mail.Read`
 
 </details>
 
@@ -549,3 +608,36 @@ Das Mailobjekt das an die GraphApi gesendet wird oder von dieser als Ergebnis zu
 |Labels|string[]|Die gesetzten Outlook-Kategorien (Labels) der Mail. Wird beim Auslesen von Mails automatisch befüllt.|
 
 </details>
+
+### Beispielcode Credential Microsoft365 laden
+
+**Beispielcode, wie man die Credentials für Microsoft365 Funktionen über die Microsoft Konnektor Konfiguration generieren kann:**
+
+Das ist ein ECMAScript Beispielcode um aus der Konfiguration von AuxData die Mcirosoft365 Konnektor Information zu laden und daraus ein graphcredentials Objekt zu generieren mit dem aktuellen User
+
+```
+getModule("organisation");
+getModule("user");
+
+function getGraphCredentials() {
+    
+    var mailAddress = getMailAddress();
+    var org = organisation_getOrganisation();
+    
+    var credentials = {
+        TenantId: org.ADConfig.MsGraphTenantId,
+        ClientId: org.ADConfig.MsgraphClientId,
+        ClientSecret: org.ADConfig.MsgraphClientSecret,
+        Account: mailAddress
+    };
+    
+    return credentials;
+}
+
+function getMailAddress() {
+    var mailAddress = "";
+    var currentUser = user_getUser();    
+     mailAddress = currentUser.Email;
+    return mailAddress;
+}
+```

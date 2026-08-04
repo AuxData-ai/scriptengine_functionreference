@@ -27,7 +27,7 @@ Startet eine Video-Übersetzung. Gibt sofort die Job-ID zurück (asynchron).
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 | agentId | number | Die ID des Agents, dem das Ergebnis-Video gehören soll. |
-| sourceUrl | string | Öffentliche URL des Quell-Videos oder die HeyGen-Asset-URL aus dem Upload-Endpoint `/heygen/source-upload`. |
+| sourceUrl | string | Öffentliche URL des Quell-Videos oder die signierte URL aus dem Upload-Endpoint `/heygen/source-upload`. Dieser Endpoint lädt das Video nicht mehr zu HeyGen hoch, sondern speichert es auf der Plattform und liefert eine 24 Stunden gültige, signierte URL, von der HeyGen das Video selbst abruft. |
 | targetLanguages | string[] | Zielsprachen, z.B. `["English","Spanish"]`. |
 | options | object | Optional: `{ mode: "speed"|"precision", title: string }`. Standard `mode` ist `"speed"`. |
 
@@ -50,7 +50,9 @@ Liefert Status und Ergebnis eines Übersetzungs-Jobs.
 
 object `{ jobId, status, mediaUrl, error }` — `status` ist einer von
 `pending`, `processing`, `completed`, `failed`. Bei `completed` enthält
-`mediaUrl` die abrufbare URL des übersetzten Videos.
+`mediaUrl` die abrufbare URL des übersetzten Videos. Bei `failed` enthält
+`error` den von HeyGen gelieferten Fehlergrund (z.B. „Insufficient credit"),
+nicht nur eine generische Fehlermeldung.
 </details>
 
 ### `string heygen_translateVideoAndWait(agentId, sourceUrl, targetLanguages, options, timeoutSec)`
@@ -64,7 +66,7 @@ abgelaufen ist. Achtung: Durch das Script-Timeout begrenzt — für lange
 | Name | Typ | Beschreibung |
 | ------ | ------ | ------ |
 | agentId | number | Die ID des Agents, dem das Ergebnis-Video gehören soll. |
-| sourceUrl | string | Öffentliche URL oder HeyGen-Asset-URL des Quell-Videos. |
+| sourceUrl | string | Öffentliche URL oder signierte Plattform-URL des Quell-Videos, siehe `heygen_translateVideo`. |
 | targetLanguages | string[] | Zielsprachen. |
 | options | object | `{ mode, title }`, siehe `heygen_translateVideo`. |
 | timeoutSec | number | Maximale Wartezeit in Sekunden. |

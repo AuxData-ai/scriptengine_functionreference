@@ -23,7 +23,7 @@ Objekt mit den Eigenschaften:
 
 | Feld | Typ | Beschreibung |
 | ------ | ------ | ------ |
-| type | string | Aufrufart: `chatbot`, `aiservice`, `intervall`, `function` oder `workflowfeedback` |
+| type | string | Aufrufart: `chatbot`, `aiservice`, `intervall`, `function`, `workflowfeedback` oder `webhook` |
 | agentId | number | ID des aufrufenden Agenten (0 wenn keiner, z.B. Funktionstest) |
 | agentName | string | Name des Agenten ("" wenn keiner) |
 | personaId | number | ID der aktiven Persona (0 wenn keine) |
