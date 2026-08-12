@@ -73,6 +73,12 @@ Ob der Service wirklich im Hintergrund aufgerufen wurde, kann über `resultObj.B
 
 Diese Funktion ruft den übergebenen Service mit User Authentifizierung auf. Der aufrufende Anwender, muss berechtigt sein den AI-Service am Agenten aufzurufen. Ansonsten schlägt die Authentifizierung fehl. Der User wird intern ermittelt, so dass kein zusätzlicher Parameter übergeben werden muss.
 
+Geprüft wird gegen den Agenten, dem der Service laut Datenbank gehört — nicht
+gegen den übergebenen `agentId`-Parameter. Als berechtigt gilt, wer Service-Admin
+ist, Organisations-Admin des Agenten (auch über eine übergeordnete Organisation),
+oder wer dem Agenten direkt bzw. über eine Benutzergruppe zugeordnet ist. Fehlt
+die Berechtigung, nennt die Fehlermeldung den betroffenen Agenten (Id und Name).
+
 <details><summary>Details</summary>
 
 **Parameter:**
@@ -129,6 +135,67 @@ Da dieser AI-Service ansynchron aufgerufen wird, wird als Ergebnis nur ein leere
 Ob der Service wirklich im Hintergrund aufgerufen wurde, kann über `resultObj.BackgroundMode` abgefragt werden. Dies ist ein Bool.
 </details>
 
+### `docObj aiservice_getDocument(url);`
+
+Liefert ein von einem AI-Service-Schritt erzeugtes Word- oder Excel-Dokument
+base64-kodiert. Erzeugt ein Schritt mit dem Ergebnistyp „Word (.docx)" oder
+„Excel-Tabelle (.xlsx)" eine Datei, steht deren URL in `Documents` des
+Schrittergebnisses bzw. im Global `aiservicedocuments`.
+
+<details><summary>Details</summary>
+
+**Parameter:**
+
+| Name | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|url|string|Die Dokument-URL aus `aiservicedocuments[...]` oder aus `resultObj.MultiResults.Results[n].Documents[m]`|
+
+**Rückgabewert**
+Objekt mit den Feldern:
+
+| Feld | Typ | Beschreibung |
+| ------ | ------ | ------ |
+|url|string|die übergebene URL|
+|filename|string|Dateiname inklusive Endung|
+|mimetype|string|MimeType der Datei|
+|kind|string|`docx` oder `xlsx`|
+|size|number|Rohgröße der Datei in Bytes|
+|base64|string|Dateiinhalt base64-kodiert|
+
+**Berechtigung**
+
+Abrufbar sind ausschließlich Dokumente, die die Funktion in diesem Aufruf
+erhalten hat: die Dokumente der vorhergehenden Schritte des laufenden Workflows
+und alles, was ein `aiservice_run`- bzw. `aiservice_runWithToken`-Aufruf
+zurückgeliefert hat. Eine selbst zusammengebaute URL wird abgelehnt. Die
+asynchronen Varianten (`aiservice_runAsync`, `aiservice_runWithTokenAsync`)
+liefern kein Ergebnis und damit auch keine abrufbaren Dokumente.
+
+**Fehler**
+
+| Fall | Meldung |
+| ------ | ------ |
+| URL nicht aus diesem Aufruf | `document not accessible from this execution` |
+| Dokument unbekannt oder aus fremder Organisation | `document not found` |
+| Datei nicht mehr vorhanden | `document content unavailable` |
+| Datei größer als 25 MB | `document too large: ...` |
+
+Im Fehlerfall liefert `aiservice_getDocument` — wie jede ScriptEngine-Funktion —
+einen **String** (`"ERROR aiservice_getDocument at ...: <Meldung>"`) statt des
+`docObj`; `doc.base64` und die übrigen Felder sind dann `undefined`.
+
+**Beispiel:**
+
+```
+getModule("aiservice");
+getModule("sharepoint");
+
+if (aiservicedocuments !== null && aiservicedocuments[0].length > 0) {
+    var doc = aiservice_getDocument(aiservicedocuments[0][0]);
+    sharepoint_uploadFile(spConfig, driveId, "/Berichte", "Bericht.docx", doc.base64);
+}
+```
+</details>
 
 ### Verarbeitung des Ergebnis Objekts
 

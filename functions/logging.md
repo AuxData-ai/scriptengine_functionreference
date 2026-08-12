@@ -67,8 +67,6 @@ Protokolliert einen schlimmen Fehler
 
 </details>
 
-### `string log_logs`
-enthält das Ergebnis des Loggings zurück.
 ### `string log_object(message, object)`
 Protokolliert eine Nachricht zusammen mit allen Eigenschaften eines Objekts — je Eigenschaft eine Zeile `Name: Wert`.
 <details><summary>Details</summary>

@@ -24,20 +24,52 @@ Wird eine Funktion als Prozessschritt eines AI-Workflows ausgeführt, stellt die
 
 | Eigenschaft | Wert |
 | ------ | ------ |
-| Typ | `Array<string>` oder `null` (falls die Funktion nicht innerhalb eines Workflows oder ohne vorhergehenden Schritt läuft) |
+| Typ | `Array<string>` oder `undefined` (falls die Funktion nicht innerhalb eines Workflows oder ohne vorhergehenden Schritt läuft) |
 | Reihenfolge | Chronologisch — `aiserviceresults[0]` enthält das Ergebnis des ältesten vorhergehenden Schritts, `aiserviceresults[aiserviceresults.length - 1]` das des direkt davorliegenden Schritts |
 | Inhalt | Jedes Element ist das `Result`-Feld des entsprechenden vorhergehenden AI-Service-Ergebnisses, als String |
+
+**Wichtig:** Außerhalb eines Workflows (bzw. ohne vorhergehenden Schritt) ist
+`aiserviceresults` **nicht `null`, sondern `undefined`**. Der belastbare Guard
+ist `typeof aiserviceresults === "undefined"` — ein Vergleich mit `null`
+erkennt diesen Fall nicht. (Das unterscheidet sich bewusst von
+`aiservicedocuments` weiter unten, das im leeren Fall echtes `null` liefert —
+siehe dort.)
 
 **Beispiel:**
 
 ```javascript
 function executorFunctionWrapper() {
-    if (aiserviceresults === null) {
+    if (typeof aiserviceresults === "undefined") {
         return "Kein vorheriger Schritt vorhanden";
     }
 
     // letztes vorheriges Ergebnis weiterverarbeiten
     var letztesErgebnis = aiserviceresults[aiserviceresults.length - 1];
     return "Vorheriges Ergebnis war: " + letztesErgebnis;
+}
+```
+
+## Dokumente vorheriger Workflow-Schritte (`aiservicedocuments`)
+
+Erzeugt ein vorhergehender Schritt ein Word- oder Excel-Dokument (Ergebnistyp
+„Word (.docx)" bzw. „Excel-Tabelle (.xlsx)"), stellt die Plattform dessen
+URL im Global `aiservicedocuments` bereit. Auch hier ist kein
+`getModule(...)`-Aufruf nötig.
+
+| Eigenschaft | Wert |
+| ------ | ------ |
+| Typ | Array von Arrays — ein Eintrag je vorhergehendem Schritt |
+| Reihenfolge | identisch zu `aiserviceresults`: `aiservicedocuments[i]` gehört zu `aiserviceresults[i]` |
+| Schritt ohne Dokument | leeres Array (kein Fehler) |
+| Außerhalb eines Workflows | `null` (**anders als `aiserviceresults`**, das dort `undefined` ist — hier ist der Vergleich `aiservicedocuments !== null` der belastbare Guard) |
+
+Die eigentliche Datei holt `aiservice_getDocument(url)` base64-kodiert.
+
+```
+getModule("aiservice");
+
+if (aiservicedocuments !== null && aiservicedocuments[0].length > 0) {
+    var doc = aiservice_getDocument(aiservicedocuments[0][0]);
+    log_info(doc.filename + " hat " + doc.size + " Bytes");
 }
 ```
