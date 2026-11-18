@@ -1,5 +1,10 @@
 # Funktionsreferenz für die AuxData.ai Plattform ScriptEngine
 
+## Hinweis:
+**Diese Dokumente sind veraltet. Die Funktionsreferenz wird nun direkt in der Plattform aktuell zur Verfügung gestellt. Dieses Repository wird nicht mehr durch AuxData gepflegt. Alle Informationen befinden sich in den Hilfe-Bots der Plattform sowie in der Funktionsreferenz innerhalb der Editoren.**
+
+
+
 In der AuxData.ai Plattform können mithilfe von Javascript (ES5) eigene Funktionen entwickelt werden. Diese Funktionen können dann in den Prozessschritten eines AI Workflows aufgerufen werden. 
 
 Die FUnktionen können folgendermaßen in die AI Workflows integriert werden:
